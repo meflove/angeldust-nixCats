@@ -23,4 +23,5 @@ require("lze").load({
   { import = "myLuaConf.LSPs.languages.python" },
   { import = "myLuaConf.LSPs.languages.bash" },
   { import = "myLuaConf.LSPs.languages.md" },
+  { import = "myLuaConf.LSPs.languages.rust" },
 })
