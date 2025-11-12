@@ -23,6 +23,23 @@
 
     nvim-treesitter-main.url = "github:iofq/nvim-treesitter-main";
 
+    # Rust
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    bacon = {
+      url = "github:Canop/bacon";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    bacon-ls = {
+      url = "github:crisidev/bacon-ls";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+    };
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
     # i.e. if it wasnt on nixpkgs, but doesnt have an extra build step.
@@ -45,10 +62,6 @@
     "plugins-blink-cmp-copilot" = {
       url = "github:giuxtaposition/blink-cmp-copilot";
       flake = false;
-    };
-
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
     };
   };
 
@@ -92,12 +105,14 @@
         (utils.standardPluginOverlay inputs)
         # add any other flake overlays here.
         inputs.nvim-treesitter-main.overlays.default
+        inputs.fenix.overlays.default
         # when other people mess up their overlays by wrapping them with system,
         # you may instead call this function on their overlay.
         # it will check if it has the system in the set, and if so return the desired overlay
         # (utils.fixSystemizedOverlay inputs.codeium.overlays
         #   (system: inputs.codeium.overlays.${system}.default)
         # )
+
         (
           final: prev: {
             vimPlugins = prev.vimPlugins.extend (
@@ -187,6 +202,21 @@
         markdown = with pkgs; [
           marksman
         ];
+
+        rust = with pkgs; [
+          rust-analyzer-nightly
+          graphviz
+          (fenix.complete.withComponents [
+            "cargo"
+            "clippy"
+            "rust-src"
+            "rustc"
+            "rustfmt"
+          ])
+          inputs.bacon.defaultPackage.${pkgs.stdenv.hostPlatform.system}
+          inputs.bacon-ls.defaultPackage.${pkgs.stdenv.hostPlatform.system}
+          taplo
+        ];
       };
 
       # This is for plugins that will load at startup without using packadd:
@@ -240,6 +270,10 @@
         ];
         neonixdev = with pkgs.vimPlugins; [
           lazydev-nvim
+        ];
+        rust = with pkgs.vimPlugins; [
+          crates-nvim
+          rustaceanvim
         ];
         general = {
           blink = with pkgs.vimPlugins; [
@@ -374,7 +408,6 @@
         };
         # enable the categories you want from categoryDefinitions
         categories = {
-          markdown = true;
           general = true;
           lint = true;
           format = true;
@@ -382,6 +415,8 @@
           neonixdev = true;
           python = true;
           bash = true;
+          rust = true;
+          markdown = true;
 
           # enabling this category will enable the go category,
           # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.
