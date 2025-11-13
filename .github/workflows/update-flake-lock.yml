@@ -22,7 +22,7 @@ jobs:
       - name: "flake update"
         uses: "DeterminateSystems/update-flake-lock@v27"
         with:
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}"
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           git-author-name: "John Nix"
           git-author-email: "github-actions[bot]@users.noreply.github.com"
           git-committer-name: "John Nix"
