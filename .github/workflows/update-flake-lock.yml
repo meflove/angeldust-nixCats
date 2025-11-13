@@ -30,15 +30,15 @@ jobs:
         id: update-flake-lock
         uses: "DeterminateSystems/update-flake-lock@main"
         with:
-          # pr-title: "Update flake.lock Action"
+          pr-title: "Update flake.lock Action"
           pr-labels: |
             CI/CD
             automated
-          # git-author-name: "John Nix"
-          # git-author-email: "github-actions[bot]@users.noreply.github.com"
-          # git-committer-name: "John Nix"
-          # git-committer-email: "github-actions[bot]@users.noreply.github.com"
-          # pr-assignees: "meflove"
+          git-author-name: "John Nix"
+          git-author-email: "github-actions[bot]@users.noreply.github.com"
+          git-committer-name: "John Nix"
+          git-committer-email: "github-actions[bot]@users.noreply.github.com"
+          pr-assignees: "meflove"
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
 
       - name: "Enable auto-merge"
