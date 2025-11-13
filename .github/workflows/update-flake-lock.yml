@@ -32,4 +32,3 @@ jobs:
             "CI/CD"
             "automated"
           pr-assignees: "meflove"
-          pr-reviewers: "meflove"
