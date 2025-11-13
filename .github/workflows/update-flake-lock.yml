@@ -16,6 +16,8 @@ jobs:
       id-token: write
       issues: write
       pull-requests: write
+      checks: write
+      statuses: write
     runs-on: "ubuntu-latest"
     steps:
       - name: "repo checkout"
@@ -25,6 +27,7 @@ jobs:
       - name: "flake check"
         uses: "DeterminateSystems/flake-checker-action@v5"
       - name: "flake update"
+        id: update-flake-lock
         uses: "DeterminateSystems/update-flake-lock@main"
         with:
           # pr-title: "Update flake.lock Action"
@@ -37,3 +40,11 @@ jobs:
           # git-committer-email: "github-actions[bot]@users.noreply.github.com"
           # pr-assignees: "meflove"
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+
+      - name: "Enable auto-merge"
+        if: steps.update-flake-lock.outputs.pull-request-operation == 'created' || steps.update-flake-lock.outputs.pull-request-operation == 'updated'
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          pull-request-number: ${{ steps.update-flake-lock.outputs.pull-request-number }}
+          merge-method: "merge"
