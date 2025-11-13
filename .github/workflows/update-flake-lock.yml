@@ -11,6 +11,11 @@ on:
 
 jobs:
   locker:
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
     runs-on: "ubuntu-latest"
     steps:
       - name: "repo checkout"
@@ -23,9 +28,9 @@ jobs:
         uses: "DeterminateSystems/update-flake-lock@main"
         with:
           # pr-title: "Update flake.lock Action"
-          # pr-labels: |
-          #   "CI/CD"
-          #   "automated"
+          pr-labels: |
+            CI/CD
+            automated
           # git-author-name: "John Nix"
           # git-author-email: "github-actions[bot]@users.noreply.github.com"
           # git-committer-name: "John Nix"
