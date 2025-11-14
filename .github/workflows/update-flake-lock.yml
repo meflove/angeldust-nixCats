@@ -23,7 +23,7 @@ jobs:
       - name: "repo checkout"
         uses: "actions/checkout@v4"
       - name: "nix install"
-      - uses: DeterminateSystems/determinate-nix-action@v3
+        uses: DeterminateSystems/determinate-nix-action@v3
       - name: "flake check"
         uses: "DeterminateSystems/flake-checker-action@v5"
       - name: "flake update"
