@@ -63,6 +63,11 @@
       url = "github:giuxtaposition/blink-cmp-copilot";
       flake = false;
     };
+
+    "plugins-tylsp-nvim" = {
+      url = "github:mubeentariq/tylsp.nvim";
+      flake = false;
+    };
   };
 
   # see :help nixCats.flake.outputs
@@ -189,8 +194,11 @@
         python = with pkgs; [
           python313Packages.python-lsp-server
           python313Packages.python-lsp-ruff
+          python313Packages.rope
           python313Packages.pylsp-rope
+
           basedpyright
+          ty
         ];
 
         bash = with pkgs; [
@@ -274,6 +282,9 @@
         rust = with pkgs.vimPlugins; [
           crates-nvim
           rustaceanvim
+        ];
+        python = [
+          pkgs.neovimPlugins.tylsp-nvim
         ];
         general = {
           blink = with pkgs.vimPlugins; [
