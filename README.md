@@ -2,6 +2,33 @@
 
 A comprehensive Neovim configuration managed with **nixCats** - a Nix-based package manager for Neovim plugins and configuration. This setup provides a reproducible, declarative Neovim environment with support for multiple programming languages, modern plugins, and powerful development tools.
 
+<!--toc:start-->
+- [🐱 nixCats Neovim Configuration](#🐱-nixcats-neovim-configuration)
+  - [✨ Features](#features)
+    - [🎨 User Interface](#🎨-user-interface)
+    - [🔧 Code Editing](#🔧-code-editing)
+    - [🧠 LSP & IntelliSense](#🧠-lsp-intellisense)
+    - [🛠️ Development Tools](#🛠️-development-tools)
+  - [🏗️ Architecture](#🏗️-architecture)
+  - [📁 Project Structure](#📁-project-structure)
+  - [🚀 Getting Started](#🚀-getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Available Build Outputs](#available-build-outputs)
+  - [🎯 Supported Languages](#🎯-supported-languages)
+    - [Primary Support](#primary-support)
+    - [Extended Features](#extended-features)
+  - [⚙️ Customization](#️-customization)
+    - [Adding New Plugins](#adding-new-plugins)
+    - [Enabling/Disabling Features](#enablingdisabling-features)
+    - [Language Configuration](#language-configuration)
+  - [🔧 Development Environment](#🔧-development-environment)
+  - [🎨 Theme & Appearance](#🎨-theme-appearance)
+  - [📚 Documentation](#📚-documentation)
+  - [🤝 Contributing](#🤝-contributing)
+  - [📄 License](#📄-license)
+<!--toc:end-->
+
 ## ✨ Features
 
 ### 🎨 User Interface
@@ -24,6 +51,7 @@ A comprehensive Neovim configuration managed with **nixCats** - a Nix-based pack
   - **Nix**: NixLSP for Nix file editing
   - **Bash**: BashLS for shell script development
   - **Markdown**: Marksman for markdown editing and markview.nvim for preview
+  - **Rust**: Rust Analyzer for Rust development
 - **LSP Config** - Seamless LSP integration
 
 ### 🛠️ Development Tools
@@ -119,6 +147,7 @@ Typical outputs include:
 - **Lua** 🌙 - Complete LSP support for Neovim development
 - **Nix** ❄️ - Nix language server integration
 - **Bash** 🐚 - Shell script LSP support
+- **Rust** 🦀 - rust-analyzer LSP with rustaceanvim, bacon-ls for background checking, crates.nvim for dependency management
 
 ### Extended Features
 - **Markdown** 📝 - Enhanced editing with preview support
