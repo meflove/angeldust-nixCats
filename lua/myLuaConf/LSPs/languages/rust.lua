@@ -13,7 +13,7 @@ return {
   },
   {
     "rustaceanvim",
-    for_cat = "general.rust",
+    for_cat = "rust",
     ft = { "rust" },
     lazy = false,
     init = function(plugin)
@@ -61,7 +61,7 @@ return {
   },
   {
     "crates.nvim",
-    for_cat = "general.rust",
+    for_cat = "rust",
     event = { "BufRead Cargo.toml" },
     after = function(plugin)
       require("crates").setup({
