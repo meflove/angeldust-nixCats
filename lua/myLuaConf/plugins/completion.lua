@@ -33,44 +33,44 @@ return {
       end)
     end,
   },
-  -- {
-  --   "blink-copilot",
-  --   for_cat = "general.blink",
-  --   on_plugin = { "blink.cmp" },
-  -- },
-  -- {
-  --   "copilot.lua",
-  --   for_cat = "general.blink",
-  --   dep_of = { "blink-copilot" },
-  --   after = function(_)
-  --     require("copilot").setup({
-  --       suggestion = { enabled = false },
-  --       panel = { enabled = false },
-  --       filetypes = {
-  --         markdown = true,
-  --         help = true,
-  --       },
-  --     })
-  --   end,
-  -- },
   {
-    "windsurf.nvim",
+    "blink-copilot",
     for_cat = "general.blink",
     on_plugin = { "blink.cmp" },
-    after = function()
-      require("codeium").setup({
-        enable_cmp_source = true,
-        virtual_text = {
-          enabled = false,
-          key_bindings = {
-            accept = false, -- handled by nvim-cmp / blink.cmp
-            next = "<M-]>",
-            prev = "<M-[>",
-          },
+  },
+  {
+    "copilot.lua",
+    for_cat = "general.blink",
+    dep_of = { "blink-copilot" },
+    after = function(_)
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+        filetypes = {
+          markdown = true,
+          help = true,
         },
       })
     end,
   },
+  -- {
+  --   "windsurf.nvim",
+  --   for_cat = "general.blink",
+  --   on_plugin = { "blink.cmp" },
+  --   after = function()
+  --     require("codeium").setup({
+  --       enable_cmp_source = true,
+  --       virtual_text = {
+  --         enabled = false,
+  --         key_bindings = {
+  --           accept = false, -- handled by nvim-cmp / blink.cmp
+  --           next = "<M-]>",
+  --           prev = "<M-[>",
+  --         },
+  --       },
+  --     })
+  --   end,
+  -- },
   {
     "colorful-menu.nvim",
     for_cat = "general.blink",
@@ -183,7 +183,7 @@ return {
           end,
         },
         sources = {
-          default = { "lsp", "path", "snippets", "buffer", "omni", "codeium" }, --, "copilot"
+          default = { "lsp", "path", "snippets", "buffer", "omni", "copilot" }, -- "copilot" "codeium"
           providers = {
             path = {
               score_offset = 50,
@@ -208,12 +208,12 @@ return {
               score_offset = 100,
               async = true,
             },
-            -- copilot = {
-            --   name = "copilot",
-            --   module = "blink-copilot",
-            --   score_offset = 100,
-            --   async = true,
-            -- },
+            copilot = {
+              name = "copilot",
+              module = "blink-copilot",
+              score_offset = 100,
+              async = true,
+            },
           },
         },
       })
