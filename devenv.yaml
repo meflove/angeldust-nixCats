@@ -2,5 +2,3 @@
 inputs:
   nixpkgs:
     url: github:cachix/devenv-nixpkgs/rolling
-  nixCats:
-    url: github:meflove/angeldust-nixcats
