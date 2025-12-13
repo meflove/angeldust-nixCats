@@ -18,6 +18,7 @@ require("lze").load({
         -- typescript = { 'eslint' },
         nix = { "statix" },
         -- python = { "pylint" },
+        yaml = { "yamllint" },
       }
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "BufReadPost", "InsertLeave" }, {
