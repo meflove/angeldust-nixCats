@@ -3,8 +3,19 @@ local catUtils = require("nixCatsUtils")
 return {
   {
     "nil_ls",
+    root_markers = { "flake.nix", ".git" },
     lsp = {
       filetypes = { "nix" },
+      settings = {
+        nil_ls = {
+          nix = {
+            flake = {
+              autoArchive = true,
+              autoEvalInputs = true,
+            },
+          },
+        },
+      },
     },
   },
   {

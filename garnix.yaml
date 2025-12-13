@@ -1,0 +1,6 @@
+---
+# yaml-language-server: $schema=https://garnix.io/api/garnix-config-schema.json
+builds:
+  include: [packages.x86_64-linux.default]
+  exclude: [devShells.*, packages.*]
+  branch: main

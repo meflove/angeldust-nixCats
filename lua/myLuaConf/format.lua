@@ -22,6 +22,7 @@ require("lze").load({
           -- javascript = { { "prettierd", "prettier" } },
           nix = { "alejandra" },
           sh = { "shfmt" },
+          yaml = { "yamlfmt", "yamlfix" },
         },
 
         format_on_save = {

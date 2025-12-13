@@ -174,6 +174,9 @@
         lint = with pkgs; [
           # nix
           statix
+
+          # yaml
+          yamllint
         ];
         # and easily check if they are included in lua
         format = with pkgs; [
@@ -185,12 +188,18 @@
 
           # python
           ruff
+
+          # yaml
+          yamlfmt
+          yamlfix
         ];
+
         neonixdev = {
           # also you can do this.
           inherit (pkgs) nix-doc lua-language-server nixd nil;
           # and each will be its own sub category
         };
+
         python = with pkgs; [
           python313Packages.python-lsp-server
           python313Packages.python-lsp-ruff
@@ -224,6 +233,10 @@
           inputs.bacon.defaultPackage.${pkgs.stdenv.hostPlatform.system}
           inputs.bacon-ls.defaultPackage.${pkgs.stdenv.hostPlatform.system}
           taplo
+        ];
+
+        yaml = with pkgs; [
+          yaml-language-server
         ];
       };
 
@@ -428,6 +441,7 @@
           bash = true;
           rust = true;
           markdown = true;
+          yaml = true;
 
           # enabling this category will enable the go category,
           # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.
