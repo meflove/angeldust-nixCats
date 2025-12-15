@@ -102,13 +102,12 @@ This configuration uses the **idiomatic nixCats approach**:
   ```bash
   angeldust-nixCats = {
     url = "github:meflove/angeldust-nixCats";
-    inputs.nixpkgs.follows = "nixpkgs";
   };
   ```
 
 2. **Add package to environment.systemPackages or home.packages:**
   ```bash
-  home.packages = with pkgs; [
+  home.packages = [
     inputs.angeldust-nixCats.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
   ```

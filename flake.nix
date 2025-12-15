@@ -63,11 +63,6 @@
       url = "github:giuxtaposition/blink-cmp-copilot";
       flake = false;
     };
-
-    "plugins-tylsp-nvim" = {
-      url = "github:mubeentariq/tylsp.nvim";
-      flake = false;
-    };
   };
 
   # see :help nixCats.flake.outputs
@@ -296,9 +291,6 @@
           crates-nvim
           rustaceanvim
         ];
-        python = [
-          pkgs.neovimPlugins.tylsp-nvim
-        ];
         general = {
           blink = with pkgs.vimPlugins; [
             luasnip
@@ -329,7 +321,6 @@
           extra = with pkgs.vimPlugins; [
             noice-nvim
             nvim-notify
-            catppuccin-nvim
             which-key-nvim
             ts-comments-nvim
             undotree

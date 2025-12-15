@@ -44,7 +44,7 @@ return {
               preview = true, -- Whether to enable the preview style linting and formatting.
               targetVersion = "py313", -- The minimum python version to target (applies for both linting and formatting).
             },
-            rope_autoimport = { enabled = true },
+            rope_autoimport = { enabled = false },
             pyflakes = { enabled = false },
             flake8 = { enabled = false },
             pylint = { enabled = false },
@@ -72,36 +72,11 @@ return {
     },
     lsp = {
       filetypes = { "python" },
+      settings = {
+        ty = {
+          diagnosticMode = "workspace",
+        },
+      },
     },
   },
-  {
-    "tylsp.nvim",
-    for_cat = "python",
-    ft = { "python" },
-  },
-  -- {
-  --   "basedpyright",
-  --   lsp = {
-  --     filetypes = { "python" },
-  --     root_markers = {
-  --       "pyproject.toml",
-  --       "setup.py",
-  --       "setup.cfg",
-  --       "requirements.txt",
-  --       "Pipfile",
-  --       "pyrightconfig.json",
-  --       ".git",
-  --     },
-  --     settings = {
-  --       basedpyright = {
-  --         disableOrganizeImports = true,
-  --         analysis = {
-  --           autoSearchPaths = true,
-  --           useLibraryCodeForTypes = true,
-  --           diagnosticMode = "openFilesOnly",
-  --         },
-  --       },
-  --     },
-  --   },
-  -- },
 }

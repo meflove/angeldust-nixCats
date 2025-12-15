@@ -1,0 +1,25 @@
+---
+name: Mirror action
+run-name: codeberg_mirror
+permissions:
+  contents: write
+  pull-requests: write
+on:
+  push:
+    branches: ['**']
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: mirror-repository
+        uses: spyoungtech/mirror-action@v0.7.0
+        with:
+          REMOTE: ssh://git@codeberg.org/angeldust/angeldust-nixCats.git
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
+          GIT_SSH_KNOWN_HOSTS: ${{ secrets.GIT_SSH_KNOWN_HOSTS }}
