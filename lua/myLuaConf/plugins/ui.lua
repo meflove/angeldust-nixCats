@@ -2,6 +2,7 @@ return {
   {
     "catppuccin-nvim",
     for_cat = "general.extra",
+    lazy = false,
     after = function(plugin)
       require("catppuccin").setup({
         flavour = "macchiato",
