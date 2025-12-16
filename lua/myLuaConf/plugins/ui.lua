@@ -1,11 +1,16 @@
 return {
   {
-    "catppuccin-nvim",
+    "catppuccin",
     for_cat = "general.extra",
-    lazy = false,
+    priority = 1000,
+    colorscheme = "catppuccin",
     after = function(plugin)
       require("catppuccin").setup({
         flavour = "macchiato",
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
         integrations = {
           gitsigns = true,
           lualine = true,
