@@ -321,7 +321,6 @@
           extra = with pkgs.vimPlugins; [
             noice-nvim
             nvim-notify
-            catppuccin-nvim
             which-key-nvim
             ts-comments-nvim
             undotree

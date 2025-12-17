@@ -1,11 +1,29 @@
-local colorschemeName = nixCats("colorscheme")
-if not require("nixCatsUtils").isNixCats then
-  colorschemeName = "onedark"
+if nixCats and nixCats("colorscheme"):find("catppuccin", 1, true) == 1 then
+  require("catppuccin").setup({
+    flavour = "macchiato",
+    integrations = {
+      gitsigns = true,
+      lualine = true,
+      notify = true,
+      mini = true,
+      noice = true,
+      snacks = true,
+      blink_cmp = {
+        style = "bordered",
+      },
+      flash = true,
+      indent_blankline = {
+        enabled = true,
+        scope_color = "mauve", -- catppuccin color (eg. `lavender`) Default: text
+        colored_indent_levels = false,
+      },
+      treesitter_context = true,
+      markview = true,
+      rendered_markdown = true,
+    },
+  })
 end
--- Could I lazy load on colorscheme with lze?
--- sure. But I was going to call vim.cmd.colorscheme() during startup anyway
--- this is just an example, feel free to do a better job!
-vim.cmd.colorscheme(colorschemeName)
+vim.cmd.colorscheme(nixCats("colorscheme"))
 
 local ok, notify = pcall(require, "notify")
 if ok then
