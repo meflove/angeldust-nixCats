@@ -373,22 +373,6 @@
         "type": "github"
       }
     },
-    "plugins-tylsp-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1765757632,
-        "narHash": "sha256-Y6r7KoKe7gYAsSrhxXV4753wzVYWrMlGBb6BN23LkNw=",
-        "owner": "mubeentariq",
-        "repo": "tylsp.nvim",
-        "rev": "1cea651dbb1cb81aadd1057521c95b1c15dae698",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mubeentariq",
-        "repo": "tylsp.nvim",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "bacon": "bacon",
@@ -399,8 +383,7 @@
         "nixpkgs": "nixpkgs_4",
         "nvim-treesitter-main": "nvim-treesitter-main",
         "plugins-blink-cmp-copilot": "plugins-blink-cmp-copilot",
-        "plugins-tiny-inline-diagnostic": "plugins-tiny-inline-diagnostic",
-        "plugins-tylsp-nvim": "plugins-tylsp-nvim"
+        "plugins-tiny-inline-diagnostic": "plugins-tiny-inline-diagnostic"
       }
     },
     "rust-analyzer-src": {
