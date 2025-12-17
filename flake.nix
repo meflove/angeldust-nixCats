@@ -260,6 +260,8 @@
             # Theme switcher without creating a new category
             "onedark" = onedark-nvim;
             "catppuccin" = catppuccin-nvim;
+            "catppuccin-macchiato" = catppuccin-nvim;
+            "catppuccin-mocha" = catppuccin-nvim;
             "tokyonight" = tokyonight-nvim;
             "tokyonight-day" = tokyonight-nvim;
           }
@@ -319,7 +321,7 @@
           extra = with pkgs.vimPlugins; [
             noice-nvim
             nvim-notify
-            catppuccin-nvim
+            # catppuccin-nvim
             which-key-nvim
             ts-comments-nvim
             undotree
@@ -443,7 +445,7 @@
           # you could also pass something else:
           # see :help nixCats
           themer = true;
-          colorscheme = "catppuccin";
+          colorscheme = "catppuccin-macchiato";
         };
         extra = {
           # to keep the categories table from being filled with non category things that you want to pass
