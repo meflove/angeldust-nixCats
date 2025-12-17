@@ -2,7 +2,7 @@ return {
   {
     "catppuccin-nvim",
     for_cat = "general.extra",
-    lazy = false,
+    colorscheme = { "catppuccin", "catppuccin-latte", "catppuccin-frappe", "catppuccin-macchiato", "catppuccin-mocha" },
     after = function(plugin)
       require("catppuccin").setup({
         flavour = "macchiato",
@@ -27,7 +27,6 @@ return {
           rendered_markdown = true,
         },
       })
-      vim.cmd.colorscheme("catppuccin")
     end,
   },
   {
