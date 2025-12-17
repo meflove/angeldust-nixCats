@@ -1,36 +1,5 @@
 return {
   {
-    "catppuccin-nvim",
-    for_cat = "general.extra",
-    lazy = false,
-    after = function(plugin)
-      require("catppuccin").setup({
-        flavour = "macchiato",
-        integrations = {
-          gitsigns = true,
-          lualine = true,
-          notify = true,
-          mini = true,
-          noice = true,
-          snacks = true,
-          blink_cmp = {
-            style = "bordered",
-          },
-          flash = true,
-          indent_blankline = {
-            enabled = true,
-            scope_color = "mauve", -- catppuccin color (eg. `lavender`) Default: text
-            colored_indent_levels = false,
-          },
-          treesitter_context = true,
-          markview = true,
-          rendered_markdown = true,
-        },
-      })
-      vim.cmd.colorscheme("catppuccin")
-    end,
-  },
-  {
     "mini.icons",
     for_cat = "general.extra",
     event = "DeferredUIEnter",
