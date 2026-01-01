@@ -4,7 +4,7 @@ return {
   {
     "nvim-treesitter-context",
     for_cat = "general.treesitter",
-    on_plugin = { "nvim-treesitter" },
+    dep_of = { "nvim-treesitter" },
     after = function(plugin)
       require("treesitter-context").setup({
         enable = true,
@@ -15,19 +15,42 @@ return {
   {
     "nvim-treesitter",
     for_cat = "general.treesitter",
-    -- cmd = { "" },
-    -- ft = "",
-    -- keys = "",
-    -- colorscheme = "",
     lazy = false,
-    load = function(name)
-      vim.cmd.packadd(name)
-      vim.cmd.packadd("nvim-treesitter-textobjects")
-    end,
     after = function(plugin)
-      -- [[ Configure Treesitter ]]
-      -- See `:help nvim-treesitter`
-      require("nvim-treesitter").setup({
+      local ts = require("nvim-treesitter")
+
+      local group = vim.api.nvim_create_augroup("TreesitterSetup", { clear = true })
+
+      local ignore_filetypes = {
+        "checkhealth",
+        "lazy",
+        "mason",
+        "snacks_dashboard",
+        "snacks_notif",
+        "snacks_win",
+      }
+
+      -- Auto-install parsers and enable highlighting on FileType
+      vim.api.nvim_create_autocmd("FileType", {
+        group = group,
+        desc = "Enable treesitter highlighting and indentation",
+        callback = function(event)
+          if vim.tbl_contains(ignore_filetypes, event.match) then
+            return
+          end
+
+          local lang = vim.treesitter.language.get_lang(event.match) or event.match
+          local buf = event.buf
+
+          -- Start highlighting immediately (works if parser exists)
+          pcall(vim.treesitter.start, buf, lang)
+
+          -- Enable treesitter indentation
+          vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
+
+      ts.setup({
         highlight = { enable = true },
         indent = { enable = true },
         folds = { enable = true },
@@ -85,15 +108,6 @@ return {
             },
           },
         },
-      })
-
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "<filetype>" },
-        callback = function()
-          vim.treesitter.start()
-          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-          vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        end,
       })
     end,
   },

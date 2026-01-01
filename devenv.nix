@@ -18,7 +18,7 @@
   ];
 
   enterShell = ''
-    ${lib.getExe pkgs.git} pull
+    # ${lib.getExe pkgs.git} pull
 
     echo -e "\n\e[33m⚙ Welcome\e[0m \e[37mto the\e[0m \e[36m nixCats\e[0m \e[35mconfiguration development\e[0m \e[32mshell!\e[0m"
 

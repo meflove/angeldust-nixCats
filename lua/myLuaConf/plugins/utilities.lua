@@ -48,49 +48,78 @@ return {
       require("markview").setup({})
     end,
   },
+  -- {
+  --   "snipe.nvim",
+  --   for_cat = "general.extra",
+  --   keys = {
+  --     {
+  --       "gb",
+  --       function()
+  --         require("snipe").open_buffer_menu()
+  --       end,
+  --       desc = "Open Snipe buffer menu",
+  --       noremap = true,
+  --     },
+  --   },
+  --   after = function(plugin)
+  --     require("snipe").setup({
+  --       ui = { position = "center" },
+  --       hints = {
+  --         -- Charaters to use for hints
+  --         -- make sure they don't collide with the navigation keymaps
+  --         -- If you remove `j` and `k` from below, you can navigate in the plugin
+  --         -- dictionary = "sadflewcmpghio",
+  --         dictionary = "asfghl;wertyuiop",
+  --       },
+  --       navigate = {
+  --         -- In case you changed your mind, provide a keybind that lets you
+  --         -- cancel the snipe and close the window.
+  --         cancel_snipe = {
+  --           "<esc>",
+  --           "q",
+  --         },
+  --
+  --         -- Remove "j" and "k" from your dictionary to navigate easier to delete
+  --         -- Close the buffer under the cursor
+  --         -- NOTE: Make sure you don't use the character below on your dictionary
+  --         close_buffer = "d",
+  --       },
+  --       -- Define the way buffers are sorted by default
+  --       -- Can be any of "default" (sort buffers by their number) or "last" (sort buffers by last accessed)
+  --       -- If you choose "last", it will be modifying sorting the boffers by last
+  --       -- accessed, so the "a" will always be assigned to your latest accessed
+  --       -- buffer
+  --       -- If you want the letters not to change, leave the sorting at default
+  --       sort = "default",
+  --     })
+  --   end,
+  -- },
   {
-    "snipe.nvim",
+    "bafa",
     for_cat = "general.extra",
     keys = {
       {
         "gb",
         function()
-          require("snipe").open_buffer_menu()
+          require("bafa.ui").toggle()
         end,
-        desc = "Open Snipe buffer menu",
+        desc = "List open buffers",
         noremap = true,
       },
     },
     after = function(plugin)
-      require("snipe").setup({
-        ui = { position = "center" },
-        hints = {
-          -- Charaters to use for hints
-          -- make sure they don't collide with the navigation keymaps
-          -- If you remove `j` and `k` from below, you can navigate in the plugin
-          -- dictionary = "sadflewcmpghio",
-          dictionary = "asfghl;wertyuiop",
-        },
-        navigate = {
-          -- In case you changed your mind, provide a keybind that lets you
-          -- cancel the snipe and close the window.
-          cancel_snipe = {
-            "<esc>",
-            "q",
-          },
-
-          -- Remove "j" and "k" from your dictionary to navigate easier to delete
-          -- Close the buffer under the cursor
-          -- NOTE: Make sure you don't use the character below on your dictionary
-          close_buffer = "d",
-        },
-        -- Define the way buffers are sorted by default
-        -- Can be any of "default" (sort buffers by their number) or "last" (sort buffers by last accessed)
-        -- If you choose "last", it will be modifying sorting the boffers by last
-        -- accessed, so the "a" will always be assigned to your latest accessed
-        -- buffer
-        -- If you want the letters not to change, leave the sorting at default
-        sort = "default",
+      require("bafa").setup({
+        style = "minimal",
+        line_numbers = true,
+      })
+    end,
+  },
+  {
+    "kikao",
+    for_cat = "general.extra",
+    after = function(plugin)
+      require("kikao").setup({
+        session_file_name = nil,
       })
     end,
   },
