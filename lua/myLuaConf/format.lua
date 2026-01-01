@@ -23,6 +23,7 @@ require("lze").load({
           nix = { "alejandra" },
           sh = { "shfmt" },
           yaml = { "yamlfmt", "yamlfix" },
+          json = { "json_repair", "fixjson" },
         },
 
         format_on_save = {

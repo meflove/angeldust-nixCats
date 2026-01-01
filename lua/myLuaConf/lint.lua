@@ -19,6 +19,7 @@ require("lze").load({
         nix = { "statix" },
         -- python = { "pylint" },
         yaml = { "yamllint" },
+        json = { "jsonlint" },
       }
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "BufReadPost", "InsertLeave" }, {

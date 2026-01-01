@@ -341,6 +341,22 @@
         "type": "github"
       }
     },
+    "plugins-bafa": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1766828414,
+        "narHash": "sha256-miwnW2TBBdQRFP61aOVxD01eWTOoN4AXIOsVIlb3+Fo=",
+        "owner": "mistweaverco",
+        "repo": "bafa.nvim",
+        "rev": "d4f796790c209f8998d00fcf72402ff81f5c1ed2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mistweaverco",
+        "repo": "bafa.nvim",
+        "type": "github"
+      }
+    },
     "plugins-blink-cmp-copilot": {
       "flake": false,
       "locked": {
@@ -354,6 +370,22 @@
       "original": {
         "owner": "giuxtaposition",
         "repo": "blink-cmp-copilot",
+        "type": "github"
+      }
+    },
+    "plugins-kikao": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1766816938,
+        "narHash": "sha256-O3HHYgep2N3Ddy/XnoZqxdcAPQe34x5hz2ezN4LBa/s=",
+        "owner": "mistweaverco",
+        "repo": "kikao.nvim",
+        "rev": "6b41740b4b3aba0ae83e7ba274a19448a8ed52b6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mistweaverco",
+        "repo": "kikao.nvim",
         "type": "github"
       }
     },
@@ -382,7 +414,9 @@
         "nixCats": "nixCats",
         "nixpkgs": "nixpkgs_4",
         "nvim-treesitter-main": "nvim-treesitter-main",
+        "plugins-bafa": "plugins-bafa",
         "plugins-blink-cmp-copilot": "plugins-blink-cmp-copilot",
+        "plugins-kikao": "plugins-kikao",
         "plugins-tiny-inline-diagnostic": "plugins-tiny-inline-diagnostic"
       }
     },

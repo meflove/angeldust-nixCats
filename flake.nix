@@ -63,6 +63,16 @@
       url = "github:giuxtaposition/blink-cmp-copilot";
       flake = false;
     };
+
+    "plugins-bafa" = {
+      url = "github:mistweaverco/bafa.nvim";
+      flake = false;
+    };
+
+    "plugins-kikao" = {
+      url = "github:mistweaverco/kikao.nvim";
+      flake = false;
+    };
   };
 
   # see :help nixCats.flake.outputs
@@ -172,6 +182,9 @@
 
           # yaml
           yamllint
+
+          # json
+          python313Packages.demjson3
         ];
         # and easily check if they are included in lua
         format = with pkgs; [
@@ -187,6 +200,10 @@
           # yaml
           yamlfmt
           yamlfix
+
+          # json
+          fixjson
+          python314Packages.json-repair
         ];
 
         neonixdev = {
@@ -233,6 +250,10 @@
         yaml = with pkgs; [
           yaml-language-server
         ];
+
+        json = with pkgs; [
+          vscode-json-languageserver
+        ];
       };
 
       # This is for plugins that will load at startup without using packadd:
@@ -250,6 +271,7 @@
           extra = [
             mini-files
             mini-icons
+            nvim-web-devicons
           ];
         };
         # You can retreive information from the
@@ -290,6 +312,9 @@
         rust = with pkgs.vimPlugins; [
           crates-nvim
           rustaceanvim
+        ];
+        json = with pkgs.vimPlugins; [
+          SchemaStore-nvim
         ];
         general = {
           blink = with pkgs.vimPlugins; [
@@ -332,6 +357,8 @@
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.
             pkgs.neovimPlugins.tiny-inline-diagnostic
+            pkgs.neovimPlugins.bafa
+            pkgs.neovimPlugins.kikao
           ];
         };
       };
@@ -433,6 +460,7 @@
           rust = true;
           markdown = true;
           yaml = true;
+          json = true;
 
           # enabling this category will enable the go category,
           # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.
@@ -501,18 +529,6 @@
       # from the package we give it.
       # and additionally output the original as default.
       packages = utils.mkAllWithDefault defaultPackage;
-
-      # choose your package for devShell
-      # and add whatever else you want in it.
-      devShells = {
-        default = pkgs.mkShell {
-          name = defaultPackageName;
-          packages = [defaultPackage];
-          inputsFrom = [];
-          shellHook = ''
-          '';
-        };
-      };
     })
     // (let
       # we also export a nixos module to allow reconfiguration from configuration.nix
