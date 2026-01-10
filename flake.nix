@@ -21,8 +21,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
-    nvim-treesitter-main.url = "github:iofq/nvim-treesitter-main";
-
     # Rust
     fenix = {
       url = "github:nix-community/fenix";
@@ -54,22 +52,27 @@
     # How to import it into your config is shown farther down in the startupPlugins set.
     # You put it here like this, and then below you would use it with `pkgs.neovimPlugins.hlargs`
 
-    "plugins-tiny-inline-diagnostic" = {
+    plugins-treesitter-textobjects = {
+      url = "github:nvim-treesitter/nvim-treesitter-textobjects/main";
+      flake = false;
+    };
+
+    plugins-tiny-inline-diagnostic = {
       url = "github:rachartier/tiny-inline-diagnostic.nvim";
       flake = false;
     };
 
-    "plugins-blink-cmp-copilot" = {
+    plugins-blink-cmp-copilot = {
       url = "github:giuxtaposition/blink-cmp-copilot";
       flake = false;
     };
 
-    "plugins-bafa" = {
+    plugins-bafa = {
       url = "github:mistweaverco/bafa.nvim";
       flake = false;
     };
 
-    "plugins-kikao" = {
+    plugins-kikao = {
       url = "github:mistweaverco/kikao.nvim";
       flake = false;
     };
@@ -114,7 +117,6 @@
         # use `pkgs.neovimPlugins`, which is a set of our plugins.
         (utils.standardPluginOverlay inputs)
         # add any other flake overlays here.
-        inputs.nvim-treesitter-main.overlays.default
         inputs.fenix.overlays.default
         # when other people mess up their overlays by wrapping them with system,
         # you may instead call this function on their overlay.
@@ -122,29 +124,6 @@
         # (utils.fixSystemizedOverlay inputs.codeium.overlays
         #   (system: inputs.codeium.overlays.${system}.default)
         # )
-
-        (
-          final: prev: {
-            vimPlugins = prev.vimPlugins.extend (
-              f: p: {
-                nvim-treesitter = p.nvim-treesitter.withAllGrammars; # or withPlugins...
-                # also redefine nvim-treesitter-textobjects (any other plugins that depend on nvim-treesitter)
-                nvim-treesitter-textobjects = p.nvim-treesitter-textobjects.overrideAttrs {
-                  dependencies = [f.nvim-treesitter];
-                };
-                nvim-treesitter-context = p.nvim-treesitter-context.overrideAttrs {
-                  dependencies = [f.nvim-treesitter];
-                };
-                flash-nvim = p.flash-nvim.overrideAttrs {
-                  dependencies = [f.nvim-treesitter];
-                };
-                blink-cmp = p.blink-cmp.overrideAttrs {
-                  dependencies = [f.nvim-treesitter];
-                };
-              }
-            );
-          }
-        )
       ];
 
     # see :help nixCats.flake.outputs.categories
@@ -174,6 +153,7 @@
           universal-ctags
           ripgrep
           fd
+          tree-sitter
         ];
         # these names are arbitrary.
         lint = with pkgs; [
@@ -330,7 +310,7 @@
             windsurf-nvim
           ];
           treesitter = with pkgs.vimPlugins; [
-            nvim-treesitter-textobjects
+            pkgs.neovimPlugins.treesitter-textobjects
             nvim-treesitter.withAllGrammars
             nvim-treesitter-context
           ];
