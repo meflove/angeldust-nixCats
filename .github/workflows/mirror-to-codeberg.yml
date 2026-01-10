@@ -1,0 +1,30 @@
+---
+name: Mirror to Codeberg
+run-name: mirror to codeberg
+permissions:
+  contents: write
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: push to codeberg
+        env:
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.CODEBERG_SSH_KEY }}
+          GIT_SSH_KNOWN_HOSTS: ${{ secrets.CODEBERG_KNOWN_HOSTS }}
+        run: |-
+          eval $(ssh-agent -s)
+          echo "$GIT_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "$GIT_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+          git remote add codeberg ssh://git@codeberg.org/angeldust/angeldust-nixCats.git
+          git push codeberg main --force
