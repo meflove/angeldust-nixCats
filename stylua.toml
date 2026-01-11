@@ -1,0 +1,33 @@
+# StyLua configuration for Lua formatting
+# https://github.com/johnnymorganz/stylua
+
+# Lua syntax version (All, Lua51, Lua52, Lua53, Lua54, Luau, LuaJIT)
+syntax = "LuaJIT"
+
+# Column width for line wrapping (approximate, not hard limit)
+column_width = 120
+
+# Line endings (Unix, Windows)
+line_endings = "Unix"
+
+# Indentation type (Tabs, Spaces)
+indent_type = "Spaces"
+
+# Indentation width
+indent_width = 2
+
+# Quote style (AutoPreferDouble, AutoPreferSingle, ForceDouble, ForceSingle)
+quote_style = "AutoPreferDouble"
+
+# Call parentheses (Always, NoSingleString, NoSingleTable, None, Input)
+call_parentheses = "Always"
+
+# Collapse simple statements (Never, FunctionOnly, ConditionalOnly, Always)
+collapse_simple_statement = "Never"
+
+# Space after function names (Never, Definitions, Calls, Always)
+space_after_function_names = "Never"
+
+# Sort require statements
+[sort_requires]
+enabled = true

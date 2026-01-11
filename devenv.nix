@@ -38,6 +38,10 @@
       # Nix specific hooks
       alejandra.enable = true;
       statix.enable = true;
+
+      # Lua specific hooks
+      lua-ls.enable = true;
+      stylua.enable = true;
     };
   };
 }

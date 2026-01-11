@@ -1,0 +1,31 @@
+{
+  "runtime": {
+    "version": "LuaJIT",
+    "path": [
+      "?.lua",
+      "?/init.lua",
+      "?/init.lua"
+    ]
+  },
+  "workspace": {
+    "library": [
+      "$VIMRUNTIME/lua",
+      "${3rd}/luv/library"
+    ],
+    "maxPreload": 5000,
+    "preloadFileSize": 1000
+  },
+  "diagnostics": {
+    "globals": [
+      "vim",
+      "Snacks",
+      "lsp"
+    ]
+  },
+  "type": {
+    "magicTypes": {
+      "vim.lsp.ProgressToken": "any",
+      "vim.lsp.ProgressParams": "any"
+    }
+  }
+}

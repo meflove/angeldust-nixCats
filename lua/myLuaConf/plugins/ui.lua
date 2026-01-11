@@ -116,10 +116,10 @@ return {
       })
 
       -- notify LSP progress
-      ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
+      ---@type table<number, {token:any, msg:string, done:boolean}[]>
       local progress = vim.defaulttable()
       vim.api.nvim_create_autocmd("LspProgress", {
-        ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+        ---@param ev {data: {client_id: integer, params: any}}
         callback = function(ev)
           local client = vim.lsp.get_client_by_id(ev.data.client_id)
           local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
