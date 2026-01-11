@@ -35,6 +35,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    statix = {
+      url = "github:molybdenumsoftware/statix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
@@ -158,7 +163,7 @@
         # these names are arbitrary.
         lint = with pkgs; [
           # nix
-          statix
+          inputs.statix.packages.${pkgs.stdenv.hostPlatform.system}.statix
 
           # yaml
           yamllint
