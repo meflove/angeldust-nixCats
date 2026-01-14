@@ -53,6 +53,8 @@ return {
       })
     end,
   },
+  -- NOTE: Alternative to Copilot - uncomment when reaching Copilot limits
+  -- Switch between copilot.lua and windsurf.nvim based on which service has available quota
   -- {
   --   "windsurf.nvim",
   --   for_cat = "general.blink",
