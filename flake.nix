@@ -188,7 +188,7 @@
 
           # json
           fixjson
-          python314Packages.json-repair
+          python313Packages.json-repair
         ];
 
         neonixdev = {
@@ -200,10 +200,8 @@
         python = with pkgs; [
           python313Packages.python-lsp-server
           python313Packages.python-lsp-ruff
-          python313Packages.rope
-          python313Packages.pylsp-rope
 
-          basedpyright
+          # type checking
           ty
         ];
 

@@ -20,6 +20,7 @@ jobs:
           GIT_SSH_PRIVATE_KEY: ${{ secrets.CODEBERG_SSH_KEY }}
           GIT_SSH_KNOWN_HOSTS: ${{ secrets.CODEBERG_KNOWN_HOSTS }}
         run: |-
+          set +x  # Prevent echoing sensitive data in debug mode
           eval $(ssh-agent -s)
           echo "$GIT_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
           mkdir -p ~/.ssh
