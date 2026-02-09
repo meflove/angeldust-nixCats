@@ -81,6 +81,11 @@
       url = "github:mistweaverco/kikao.nvim";
       flake = false;
     };
+
+    plugins-hbac = {
+      url = "github:axkirillov/hbac.nvim";
+      flake = false;
+    };
   };
 
   # see :help nixCats.flake.outputs
@@ -237,6 +242,12 @@
         json = with pkgs; [
           vscode-json-languageserver
         ];
+
+        typescript = with pkgs; [
+          typescript
+          typescript-language-server
+          prettierd
+        ];
       };
 
       # This is for plugins that will load at startup without using packadd:
@@ -299,6 +310,9 @@
         json = with pkgs.vimPlugins; [
           SchemaStore-nvim
         ];
+        typescript = with pkgs.vimPlugins; [
+          typescript-tools-nvim
+        ];
         general = {
           blink = with pkgs.vimPlugins; [
             luasnip
@@ -337,11 +351,13 @@
             snipe-nvim
             hover-nvim
             snacks-nvim
+            marks-nvim
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.
             pkgs.neovimPlugins.tiny-inline-diagnostic
             pkgs.neovimPlugins.bafa
             pkgs.neovimPlugins.kikao
+            pkgs.neovimPlugins.hbac
           ];
         };
       };
@@ -444,6 +460,7 @@
           markdown = true;
           yaml = true;
           json = true;
+          typescript = true;
 
           # enabling this category will enable the go category,
           # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.

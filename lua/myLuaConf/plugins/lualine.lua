@@ -169,7 +169,13 @@ return {
           icon = icon_data .. " "
         end
 
-        return icon .. filename
+        local pinned = function()
+          local cur_buf = vim.api.nvim_get_current_buf()
+          return require("hbac.state").is_pinned(cur_buf) and " " or ""
+          -- tip: nerd fonts have pinned/unpinned icons!
+        end
+
+        return icon .. filename .. pinned()
       end,
       cond = conditions.buffer_not_empty,
       color = { fg = colors.magenta, gui = "bold" },

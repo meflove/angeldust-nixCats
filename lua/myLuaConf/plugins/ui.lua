@@ -208,4 +208,14 @@ return {
       })
     end,
   },
+  {
+    "marks.nvim",
+    for_cat = "general.extra",
+    event = "DeferredUIEnter",
+    after = function(plugin)
+      require("marks").setup({
+        default_mappings = true,
+      })
+    end,
+  },
 }

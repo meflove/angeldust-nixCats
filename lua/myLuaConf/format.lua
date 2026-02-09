@@ -18,12 +18,17 @@ require("lze").load({
           -- templ = { "templ" },
           -- Conform will run multiple formatters sequentially
           python = { "ruff_format", "ruff_organize_imports" },
-          -- Use a sub-list to run only the first available formatter
-          -- javascript = { { "prettierd", "prettier" } },
           nix = { "alejandra" },
           sh = { "shfmt" },
           yaml = { "yamlfmt", "yamlfix" },
           json = { "json_repair", "fixjson" },
+          html = { "prettierd" },
+          javascript = { "prettierd" },
+          javascriptreact = { "prettierd" },
+          markdown = { "prettierd" },
+          typescript = { "prettierd" },
+          typescriptreact = { "prettierd" },
+          ["*"] = { "trim_whitespace" },
         },
 
         format_on_save = {
