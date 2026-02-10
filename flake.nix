@@ -247,6 +247,8 @@
           typescript
           typescript-language-server
           prettierd
+          eslint
+          eslint_d
         ];
       };
 

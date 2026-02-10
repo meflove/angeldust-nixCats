@@ -8,14 +8,15 @@ require("lze").load({
     -- keys = "",
     -- colorscheme = "",
     after = function(plugin)
+      vim.env.ESLINT_D_PPID = vim.fn.getpid()
       local lint = require("lint")
 
       lint.linters_by_ft = {
         -- NOTE: download some linters in lspsAndRuntimeDeps
         -- and configure them here
         -- markdown = {'vale',},
-        -- javascript = { 'eslint' },
-        -- typescript = { 'eslint' },
+        javascript = { "eslint_d" },
+        typescript = { "eslint_d" },
         nix = { "statix" },
         -- python = { "pylint" },
         yaml = { "yamllint" },
