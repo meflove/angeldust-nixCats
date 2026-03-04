@@ -16,8 +16,17 @@ return {
     end,
   },
   {
+    "neural-open",
+    for_cat = "general.extra",
+    lazy = false,
+    keys = {
+      { "<leader><leader>", "<Plug>(NeuralOpen)", desc = "Neural Open Files" },
+    },
+  },
+  {
     "snacks.nvim",
     for_cat = "general.extra",
+    dep_of = { "neural-open" },
     lazy = false,
     keys = {
       {
@@ -47,13 +56,6 @@ return {
         desc = "Focus Snacks Explorer",
       },
       {
-        "<leader>sf",
-        function()
-          Snacks.picker.smart()
-        end,
-        desc = "Smart Find Files",
-      },
-      {
         "<leader>/",
         function()
           Snacks.picker.grep()
@@ -66,13 +68,6 @@ return {
           Snacks.picker.lsp_symbols()
         end,
         desc = "LSP Symbols",
-      },
-      {
-        "<leader>q",
-        function()
-          Snacks.picker.qflist()
-        end,
-        desc = "Quickfix List",
       },
       {
         "<leader>su",

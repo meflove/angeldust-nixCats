@@ -31,7 +31,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     bacon-ls = {
-      url = "github:crisidev/bacon-ls";
+      # pinned due to breakage in newer versions of rand crate, see https://github.com/crisidev/bacon-ls/issues/104
+      url = "github:crisidev/bacon-ls/b3fe15a6764c89b30933e82d4eb2c3d91d741832";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -86,6 +87,11 @@
       url = "github:axkirillov/hbac.nvim";
       flake = false;
     };
+
+    plugins-neural-open = {
+      url = "github:dtormoen/neural-open.nvim";
+      flake = false;
+    };
   };
 
   # see :help nixCats.flake.outputs
@@ -128,6 +134,7 @@
         (utils.standardPluginOverlay inputs)
         # add any other flake overlays here.
         inputs.fenix.overlays.default
+        # Patch bacon-ls to fix rand API usage
         # when other people mess up their overlays by wrapping them with system,
         # you may instead call this function on their overlay.
         # it will check if it has the system in the set, and if so return the desired overlay
@@ -360,6 +367,7 @@
             pkgs.neovimPlugins.bafa
             pkgs.neovimPlugins.kikao
             pkgs.neovimPlugins.hbac
+            pkgs.neovimPlugins.neural-open
           ];
         };
       };
