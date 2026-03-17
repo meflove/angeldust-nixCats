@@ -1,14 +1,13 @@
 ---
-name: "Flake Update Action"
-run-name: "nfu"
+name: Flake Update Action
+run-name: nfu
 permissions:
   contents: write
   pull-requests: write
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * 1,4' # Run twice a week
-
+    - cron: 0 0 * * 1,4  # Run twice a week
 jobs:
   locker:
     permissions:
@@ -18,33 +17,33 @@ jobs:
       pull-requests: write
       checks: write
       statuses: write
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
     steps:
-      - name: "repo checkout"
-        uses: "actions/checkout@v4"
-      - name: "nix install"
-        uses: "DeterminateSystems/nix-installer-action@v16"
-      - name: "flake check"
-        uses: "DeterminateSystems/flake-checker-action@v5"
-      - name: "flake update"
+      - name: repo checkout
+        uses: actions/checkout@v4
+      - name: nix install
+        uses: DeterminateSystems/nix-installer-action@v16
+      - name: flake check
+        uses: DeterminateSystems/flake-checker-action@v5
+      - name: flake update
         id: update-flake-lock
-        uses: "DeterminateSystems/update-flake-lock@main"
+        uses: DeterminateSystems/update-flake-lock@main
         with:
-          pr-title: "Update flake.lock Action"
+          pr-title: Update flake.lock Action
           pr-labels: |
             CI/CD
             automated
-          git-author-name: "John Nix"
-          git-author-email: "github-actions[bot]@users.noreply.github.com"
-          git-committer-name: "John Nix"
-          git-committer-email: "github-actions[bot]@users.noreply.github.com"
-          pr-assignees: "meflove"
+          git-author-name: John Nix
+          git-author-email: github-actions[bot]@users.noreply.github.com
+          git-committer-name: John Nix
+          git-committer-email: github-actions[bot]@users.noreply.github.com
+          pr-assignees: meflove
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-
-      - name: "Enable auto-merge"
-        if: steps.update-flake-lock.outputs.pull-request-operation == 'created' || steps.update-flake-lock.outputs.pull-request-operation == 'updated'
+      - name: Enable auto-merge
+        if: steps.update-flake-lock.outputs.pull-request-operation == 'created' ||
+          steps.update-flake-lock.outputs.pull-request-operation == 'updated'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           pull-request-number: ${{ steps.update-flake-lock.outputs.pull-request-number }}
-          merge-method: "merge"
+          merge-method: merge

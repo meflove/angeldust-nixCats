@@ -19,7 +19,8 @@
     "globals": [
       "vim",
       "Snacks",
-      "lsp"
+      "lsp",
+      "nixCats"
     ]
   },
   "type": {

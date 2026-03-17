@@ -491,6 +491,8 @@
           nixdExtras = {
             nixpkgs = ''import ${pkgs.path} {}'';
             # or inherit nixpkgs;
+            nixos_options = ''(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.nixos-pc.options'';
+            home_manager_options = ''(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."angeldust@nixos-pc".options'';
           };
         };
       };
