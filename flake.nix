@@ -62,7 +62,6 @@
       url = "github:nvim-treesitter/nvim-treesitter-textobjects/main";
       flake = false;
     };
-
     plugins-tiny-inline-diagnostic = {
       url = "github:rachartier/tiny-inline-diagnostic.nvim";
       flake = false;
@@ -77,12 +76,10 @@
       url = "github:mistweaverco/bafa.nvim";
       flake = false;
     };
-
     plugins-kikao = {
       url = "github:mistweaverco/kikao.nvim";
       flake = false;
     };
-
     plugins-hbac = {
       url = "github:axkirillov/hbac.nvim";
       flake = false;
@@ -90,6 +87,15 @@
 
     plugins-neural-open = {
       url = "github:dtormoen/neural-open.nvim";
+      flake = false;
+    };
+
+    plugins-delta-lua = {
+      url = "github:kokusenz/delta.lua";
+      flake = false;
+    };
+    plugins-deltaview = {
+      url = "github:kokusenz/deltaview.nvim";
       flake = false;
     };
   };
@@ -361,6 +367,7 @@
             hover-nvim
             snacks-nvim
             marks-nvim
+
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.
             pkgs.neovimPlugins.tiny-inline-diagnostic
@@ -368,6 +375,8 @@
             pkgs.neovimPlugins.kikao
             pkgs.neovimPlugins.hbac
             pkgs.neovimPlugins.neural-open
+            pkgs.neovimPlugins.delta-lua
+            pkgs.neovimPlugins.deltaview
           ];
         };
       };

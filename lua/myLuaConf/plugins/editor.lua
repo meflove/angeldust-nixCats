@@ -81,7 +81,7 @@ return {
         { "<leader><leader>_", hidden = true },
         { "<leader>c", group = "[c]ode" },
         { "<leader>c_", hidden = true },
-        { "<leader>d", group = "[d]ocument" },
+        { "<leader>d", group = "[d]iff" },
         { "<leader>d_", hidden = true },
         { "<leader>g", group = "[g]it" },
         { "<leader>g_", hidden = true },

@@ -48,52 +48,6 @@ return {
       require("markview").setup({})
     end,
   },
-  -- {
-  --   "snipe.nvim",
-  --   for_cat = "general.extra",
-  --   keys = {
-  --     {
-  --       "gb",
-  --       function()
-  --         require("snipe").open_buffer_menu()
-  --       end,
-  --       desc = "Open Snipe buffer menu",
-  --       noremap = true,
-  --     },
-  --   },
-  --   after = function(plugin)
-  --     require("snipe").setup({
-  --       ui = { position = "center" },
-  --       hints = {
-  --         -- Charaters to use for hints
-  --         -- make sure they don't collide with the navigation keymaps
-  --         -- If you remove `j` and `k` from below, you can navigate in the plugin
-  --         -- dictionary = "sadflewcmpghio",
-  --         dictionary = "asfghl;wertyuiop",
-  --       },
-  --       navigate = {
-  --         -- In case you changed your mind, provide a keybind that lets you
-  --         -- cancel the snipe and close the window.
-  --         cancel_snipe = {
-  --           "<esc>",
-  --           "q",
-  --         },
-  --
-  --         -- Remove "j" and "k" from your dictionary to navigate easier to delete
-  --         -- Close the buffer under the cursor
-  --         -- NOTE: Make sure you don't use the character below on your dictionary
-  --         close_buffer = "d",
-  --       },
-  --       -- Define the way buffers are sorted by default
-  --       -- Can be any of "default" (sort buffers by their number) or "last" (sort buffers by last accessed)
-  --       -- If you choose "last", it will be modifying sorting the boffers by last
-  --       -- accessed, so the "a" will always be assigned to your latest accessed
-  --       -- buffer
-  --       -- If you want the letters not to change, leave the sorting at default
-  --       sort = "default",
-  --     })
-  --   end,
-  -- },
   {
     "bafa",
     for_cat = "general.extra",
@@ -166,6 +120,48 @@ return {
           vim.api.nvim_buf_delete(bufnr, {})
         end,
         close_buffers_with_windows = false, -- hbac will close buffers with associated windows if this option is `true`
+      })
+    end,
+  },
+  {
+    "delta-lua",
+    for_cat = "general.extra",
+  },
+  {
+    "deltaview",
+    for_cat = "general.extra",
+    keys = {
+      { "<leader>dm", "<cmd>DeltaMenu <CR>", mode = { "n" }, noremap = true, desc = "DeltaMenu" },
+      { "<leader>dl", "<cmd>DeltaView <CR>", mode = { "n" }, noremap = true, desc = "DeltaView" },
+      { "<leader>da", "<cmd>Delta <CR>", mode = { "n" }, noremap = true, desc = "Delta" },
+    },
+    after = function(plugin)
+      require("deltaview").setup({
+        fzf_picker = nil,
+        keyconfig = {
+          -- Global keybind to toggle DeltaMenu
+          dm_toggle_keybind = "<leader>dm",
+
+          -- Global keybind to toggle DeltaView (and exit diff if open)
+          dv_toggle_keybind = "<leader>dl",
+
+          -- Global keybind to toggle Delta (and exit diff if open)
+          d_toggle_keybind = "<leader>da",
+
+          -- Navigate between hunks in a diff
+          next_hunk = "<Tab>",
+          prev_hunk = "<S-Tab>",
+
+          -- Navigate between files (when opened from DeltaMenu)
+          next_diff = "]f",
+          prev_diff = "[f",
+
+          -- Change diff menu view to quickselect (when in fzf picker. This functionality is not available for fzf-lua and telescope)
+          fzf_toggle = "alt-;",
+
+          -- Open help legend
+          help_legend = "d?",
+        },
       })
     end,
   },

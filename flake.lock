@@ -53,11 +53,11 @@
         "rust-analyzer-src": "rust-analyzer-src"
       },
       "locked": {
-        "lastModified": 1773818109,
-        "narHash": "sha256-Wsk92HrZODmCgBb+v7XfTMUAIEhqU+Obwj+09IKRTpU=",
+        "lastModified": 1773904249,
+        "narHash": "sha256-lkvol0ZJqgN21tJQIwAIYQYCkYFFHJEDAXzoPEzJ9gI=",
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "b8b443c5a1bd8dd99df899b4ac786a7f410193e5",
+        "rev": "daa310a9b3fd5e36b4a8f3ece720c4a6d494f91f",
         "type": "github"
       },
       "original": {
@@ -325,6 +325,38 @@
         "type": "github"
       }
     },
+    "plugins-delta-lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1773853199,
+        "narHash": "sha256-5MeFFdUSHvwbia1Q9rAMAQXagxNzhVcldvw8wpAqIkY=",
+        "owner": "kokusenz",
+        "repo": "delta.lua",
+        "rev": "51eb4f27fd4bff4268dac8b77f8c69ec25af2a67",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kokusenz",
+        "repo": "delta.lua",
+        "type": "github"
+      }
+    },
+    "plugins-deltaview": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1773887509,
+        "narHash": "sha256-K8sM2WCnQl1vZIVvZq4v1AT77A3BBSvbae2UmQg34g0=",
+        "owner": "kokusenz",
+        "repo": "deltaview.nvim",
+        "rev": "d9a530e7b55d035a5341efaba65b47a6d893bc43",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kokusenz",
+        "repo": "deltaview.nvim",
+        "type": "github"
+      }
+    },
     "plugins-hbac": {
       "flake": false,
       "locked": {
@@ -416,6 +448,8 @@
         "nixpkgs": "nixpkgs_4",
         "plugins-bafa": "plugins-bafa",
         "plugins-blink-cmp-copilot": "plugins-blink-cmp-copilot",
+        "plugins-delta-lua": "plugins-delta-lua",
+        "plugins-deltaview": "plugins-deltaview",
         "plugins-hbac": "plugins-hbac",
         "plugins-kikao": "plugins-kikao",
         "plugins-neural-open": "plugins-neural-open",
@@ -449,11 +483,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772583427,
-        "narHash": "sha256-bSflAYuoHUlcVDFFaxDrVQQNp9cd6ZFjngoHljQLVOA=",
+        "lastModified": 1773891719,
+        "narHash": "sha256-GgihI3Zo7C2BTQp9CTT7cicHMXQMxu2Pp7EMIZRWDXg=",
         "owner": "molybdenumsoftware",
         "repo": "statix",
-        "rev": "690a2f7c7a135d5d0156096ffdc897a8aae74c4c",
+        "rev": "ad3c9f8c1f99dd9f690b671746713bb28ba230cb",
         "type": "github"
       },
       "original": {
