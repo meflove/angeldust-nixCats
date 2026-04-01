@@ -58,10 +58,6 @@
     # How to import it into your config is shown farther down in the startupPlugins set.
     # You put it here like this, and then below you would use it with `pkgs.neovimPlugins.hlargs`
 
-    plugins-treesitter-textobjects = {
-      url = "github:nvim-treesitter/nvim-treesitter-textobjects/main";
-      flake = false;
-    };
     plugins-tiny-inline-diagnostic = {
       url = "github:rachartier/tiny-inline-diagnostic.nvim";
       flake = false;
@@ -140,7 +136,21 @@
         (utils.standardPluginOverlay inputs)
         # add any other flake overlays here.
         inputs.fenix.overlays.default
-        # Patch bacon-ls to fix rand API usage
+
+        (_f: p: {
+          bacon = inputs.bacon.defaultPackage.${p.stdenv.hostPlatform.system};
+          bacon-ls = inputs.bacon-ls.defaultPackage.${p.stdenv.hostPlatform.system};
+
+          statix = inputs.statix.packages.${p.stdenv.hostPlatform.system}.default;
+          fenix = p.fenix.complete.withComponents [
+            "cargo"
+            "clippy"
+            "rust-src"
+            "rustc"
+            "rustfmt"
+          ];
+        })
+
         # when other people mess up their overlays by wrapping them with system,
         # you may instead call this function on their overlay.
         # it will check if it has the system in the set, and if so return the desired overlay
@@ -160,7 +170,9 @@
       name,
       mkPlugin,
       ...
-    } @ packageDef: {
+    } @ packageDef: let
+      aV = pkgs.lib.attrValues;
+    in {
       # to define and use a new category, simply add a new list to a set here,
       # and later, you will include categoryname = true; in the set you
       # provide when you build the package using this builder function.
@@ -172,116 +184,158 @@
       # this includes LSPs
       lspsAndRuntimeDeps = {
         # some categories of stuff.
-        general = with pkgs; [
-          universal-ctags
-          ripgrep
-          fd
-          tree-sitter
-        ];
+        general = aV {
+          inherit
+            (pkgs)
+            universal-ctags
+            ripgrep
+            fd
+            tree-sitter
+            ;
+        };
         # these names are arbitrary.
-        lint = with pkgs; [
-          # nix
-          inputs.statix.packages.${pkgs.stdenv.hostPlatform.system}.statix
-
+        lint = aV {
           # yaml
-          yamllint
+          inherit
+            (pkgs)
+            yamllint
+            ;
 
           # json
-          python313Packages.demjson3
-        ];
+          inherit
+            (pkgs.python313Packages)
+            demjson3
+            ;
+
+          # nix
+          inherit
+            (pkgs)
+            statix
+            ;
+        };
         # and easily check if they are included in lua
-        format = with pkgs; [
-          # nix
-          alejandra
-
-          # lua
-          stylua
-
-          # python
-          ruff
-
-          # yaml
-          yamlfmt
-          yamlfix
-
-          # json
-          fixjson
-          python313Packages.json-repair
-        ];
-
-        neonixdev = {
-          # also you can do this.
-          inherit (pkgs) nix-doc lua-language-server nixd nil;
-          # and each will be its own sub category
+        format = aV {
+          inherit
+            (pkgs)
+            # nix
+            alejandra
+            # lua
+            stylua
+            # python
+            ruff
+            # yaml
+            yamlfmt
+            yamlfix
+            # json
+            fixjson
+            ;
+          inherit
+            (pkgs.python313Packages)
+            json-repair
+            ;
         };
 
-        python = with pkgs; [
-          python313Packages.python-lsp-server
-          python313Packages.python-lsp-ruff
+        neonixdev = aV {
+          inherit
+            (pkgs)
+            nix-doc
+            lua-language-server
+            nixd
+            nil
+            ;
+        };
+
+        python = aV {
+          inherit
+            (pkgs.python313Packages)
+            python-lsp-server
+            python-lsp-ruff
+            ;
 
           # type checking
-          ty
-        ];
+          inherit
+            (pkgs)
+            ty
+            ;
+        };
 
-        bash = with pkgs; [
-          bash-language-server
-          shfmt
-          shellcheck
-        ];
+        bash = aV {
+          inherit
+            (pkgs)
+            bash-language-server
+            shfmt
+            shellcheck
+            ;
+        };
 
-        markdown = with pkgs; [
-          marksman
-        ];
+        markdown = aV {
+          inherit
+            (pkgs)
+            marksman
+            ;
+        };
 
-        rust = with pkgs; [
-          rust-analyzer-nightly
-          graphviz
-          (fenix.complete.withComponents [
-            "cargo"
-            "clippy"
-            "rust-src"
-            "rustc"
-            "rustfmt"
-          ])
-          inputs.bacon.defaultPackage.${pkgs.stdenv.hostPlatform.system}
-          inputs.bacon-ls.defaultPackage.${pkgs.stdenv.hostPlatform.system}
-          taplo
-        ];
+        rust = aV {
+          inherit
+            (pkgs)
+            rust-analyzer-nightly
+            graphviz
+            fenix
+            bacon
+            bacon-ls
+            taplo
+            ;
+        };
 
-        yaml = with pkgs; [
-          yaml-language-server
-        ];
+        yaml = aV {
+          inherit
+            (pkgs)
+            yaml-language-server
+            ;
+        };
 
-        json = with pkgs; [
-          vscode-json-languageserver
-        ];
+        json = aV {
+          inherit
+            (pkgs)
+            vscode-json-languageserver
+            ;
+        };
 
-        typescript = with pkgs; [
-          typescript
-          typescript-language-server
-          prettierd
-          eslint
-          eslint_d
-        ];
+        typescript = aV {
+          inherit
+            (pkgs)
+            typescript
+            typescript-language-server
+            prettierd
+            eslint
+            eslint_d
+            ;
+        };
       };
 
       # This is for plugins that will load at startup without using packadd:
       startupPlugins = {
-        general = with pkgs.vimPlugins; {
+        general = {
           # you can make subcategories!!!
           # (always isnt a special name, just the one I chose for this subcategory)
-          always = [
-            lze
-            lzextras
-            vim-repeat
-            plenary-nvim
-            (nvim-notify.overrideAttrs {doCheck = false;}) # TODO: remove overrideAttrs after check is fixed
-          ];
-          extra = [
-            mini-files
-            mini-icons
-            nvim-web-devicons
-          ];
+          always = aV {
+            inherit
+              (pkgs.vimPlugins)
+              lze
+              lzextras
+              vim-repeat
+              plenary-nvim
+              nvim-notify
+              ;
+          };
+          extra = aV {
+            inherit
+              (pkgs.vimPlugins)
+              mini-files
+              mini-icons
+              nvim-web-devicons
+              ;
+          };
         };
         # You can retreive information from the
         # packageDefinitions of the package this was packaged with.
@@ -294,7 +348,7 @@
             "catppuccin-macchiato" = catppuccin-nvim;
             "catppuccin-mocha" = catppuccin-nvim;
             "tokyonight" = tokyonight-nvim;
-            "tokyonight-day" = tokyonight-nvim;
+            "tokyonight-storm" = tokyonight-nvim;
           }
         );
       };
@@ -305,79 +359,122 @@
       # to get the name packadd expects, use the
       # `:NixCats pawsible` command to see them all
       optionalPlugins = {
-        lint = with pkgs.vimPlugins; [
-          nvim-lint
-        ];
-        format = with pkgs.vimPlugins; [
-          conform-nvim
-        ];
-        markdown = with pkgs.vimPlugins; [
-          markdown-preview-nvim
-          markview-nvim
-        ];
-        neonixdev = with pkgs.vimPlugins; [
-          lazydev-nvim
-        ];
-        rust = with pkgs.vimPlugins; [
-          crates-nvim
-          rustaceanvim
-        ];
-        json = with pkgs.vimPlugins; [
-          SchemaStore-nvim
-        ];
-        typescript = with pkgs.vimPlugins; [
-          typescript-tools-nvim
-        ];
+        lint = aV {
+          inherit
+            (pkgs.vimPlugins)
+            nvim-lint
+            ;
+        };
+        format = aV {
+          inherit
+            (pkgs.vimPlugins)
+            conform-nvim
+            ;
+        };
+        markdown = aV {
+          inherit
+            (pkgs.vimPlugins)
+            markdown-preview-nvim
+            markview-nvim
+            ;
+        };
+        neonixdev = aV {
+          inherit
+            (pkgs.vimPlugins)
+            lazydev-nvim
+            ;
+        };
+        rust = aV {
+          inherit
+            (pkgs.vimPlugins)
+            crates-nvim
+            rustaceanvim
+            ;
+        };
+        json = aV {
+          inherit
+            (pkgs.vimPlugins)
+            SchemaStore-nvim
+            ;
+        };
+        typescript = aV {
+          inherit
+            (pkgs.vimPlugins)
+            typescript-tools-nvim
+            ;
+        };
         general = {
-          blink = with pkgs.vimPlugins; [
-            luasnip
-            cmp-cmdline
-            blink-cmp
-            blink-compat
-            blink-pairs
-            colorful-menu-nvim
-            copilot-lua
-            blink-copilot
-            pkgs.neovimPlugins.blink-cmp-copilot
-            windsurf-nvim
-          ];
-          treesitter = with pkgs.vimPlugins; [
-            pkgs.neovimPlugins.treesitter-textobjects
-            nvim-treesitter.withAllGrammars
-            nvim-treesitter-context
-          ];
-          always = with pkgs.vimPlugins; [
-            nvim-lspconfig
-            lualine-nvim
-            gitsigns-nvim
-            vim-sleuth
-            vim-fugitive
-            vim-rhubarb
-            nvim-surround
-          ];
-          extra = with pkgs.vimPlugins; [
-            noice-nvim
-            nvim-notify
-            which-key-nvim
-            ts-comments-nvim
-            undotree
-            indent-blankline-nvim
-            flash-nvim
-            snipe-nvim
-            hover-nvim
-            snacks-nvim
-            marks-nvim
+          blink = aV {
+            inherit
+              (pkgs.vimPlugins)
+              luasnip
+              cmp-cmdline
+              blink-cmp
+              blink-compat
+              blink-pairs
+              colorful-menu-nvim
+              copilot-lua
+              blink-copilot
+              windsurf-nvim
+              ;
+
+            inherit
+              (pkgs.neovimPlugins)
+              blink-cmp-copilot
+              ;
+          };
+          treesitter = aV {
+            inherit
+              (pkgs.vimPlugins)
+              nvim-treesitter-textobjects
+              nvim-treesitter-context
+              ;
+            inherit
+              (pkgs.vimPlugins.nvim-treesitter)
+              withAllGrammars
+              ;
+          };
+          always = aV {
+            inherit
+              (pkgs.vimPlugins)
+              nvim-lspconfig
+              lualine-nvim
+              gitsigns-nvim
+              vim-sleuth
+              vim-fugitive
+              vim-rhubarb
+              nvim-surround
+              ;
+          };
+          extra = aV {
+            inherit
+              (pkgs.vimPlugins)
+              noice-nvim
+              nvim-notify
+              which-key-nvim
+              ts-comments-nvim
+              undotree
+              indent-blankline-nvim
+              flash-nvim
+              snipe-nvim
+              hover-nvim
+              snacks-nvim
+              marks-nvim
+              ;
 
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.
-            pkgs.neovimPlugins.tiny-inline-diagnostic
-            pkgs.neovimPlugins.bafa
-            pkgs.neovimPlugins.kikao
-            pkgs.neovimPlugins.hbac
-            pkgs.neovimPlugins.neural-open
-            pkgs.neovimPlugins.delta-lua
-            pkgs.neovimPlugins.deltaview
-          ];
+            inherit
+              (pkgs.neovimPlugins)
+              tiny-inline-diagnostic
+              bafa
+              kikao
+              hbac
+              neural-open
+              delta-lua
+              deltaview
+              ;
+          };
         };
       };
 
@@ -491,7 +588,7 @@
           # you could also pass something else:
           # see :help nixCats
           themer = true;
-          colorscheme = "catppuccin-macchiato";
+          colorscheme = "tokyonight-storm";
         };
         extra = {
           # to keep the categories table from being filled with non category things that you want to pass

@@ -1,26 +1,29 @@
-if nixCats and nixCats("colorscheme"):find("catppuccin", 1, true) == 1 then
-  require("catppuccin").setup({
-    flavour = "macchiato",
-    integrations = {
-      gitsigns = true,
-      lualine = true,
-      notify = true,
-      mini = true,
-      noice = true,
-      snacks = true,
-      blink_cmp = {
-        style = "bordered",
-      },
-      flash = true,
-      indent_blankline = {
-        enabled = true,
-        scope_color = "mauve", -- catppuccin color (eg. `lavender`) Default: text
-        colored_indent_levels = false,
-      },
-      treesitter_context = true,
-      markview = true,
-      rendered_markdown = true,
-    },
+if nixCats and nixCats("colorscheme"):find("tokyonight-storm", 1, true) == 1 then
+  -- require("catppuccin").setup({
+  --   flavour = "macchiato",
+  --   integrations = {
+  --     gitsigns = true,
+  --     lualine = true,
+  --     notify = true,
+  --     mini = true,
+  --     noice = true,
+  --     snacks = true,
+  --     blink_cmp = {
+  --       style = "bordered",
+  --     },
+  --     flash = true,
+  --     indent_blankline = {
+  --       enabled = true,
+  --       scope_color = "mauve", -- catppuccin color (eg. `lavender`) Default: text
+  --       colored_indent_levels = false,
+  --     },
+  --     treesitter_context = true,
+  --     markview = true,
+  --     rendered_markdown = true,
+  --   },
+  -- })
+  require("tokyonight").setup({
+    style = "storm",
   })
 end
 vim.cmd.colorscheme(nixCats("colorscheme"))

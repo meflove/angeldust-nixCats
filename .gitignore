@@ -1,8 +1,7 @@
 result
-/tags
-LazyVim*
 .claude
 .cache
+test
 
 # Devenv
 .devenv*
