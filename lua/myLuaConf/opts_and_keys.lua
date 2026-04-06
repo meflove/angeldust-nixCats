@@ -103,6 +103,25 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   end,
 })
 
+-- Stop LSP client when its last buffer dies
+vim.api.nvim_create_autocmd({ "LspDetach" }, {
+  group = vim.api.nvim_create_augroup("lsp_client_cleanup", { clear = true }),
+  desc = "Stop LSP client when its last buffer dies",
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if not client or not client.attached_buffers then
+      return
+    end
+
+    for bufnr in pairs(client.attached_buffers) do
+      if bufnr ~= ev.buf then
+        return
+      end
+    end
+    client:stop()
+  end,
+})
+
 -- [[ Disable auto comment on enter ]]
 -- See :help formatoptions
 vim.api.nvim_create_autocmd("FileType", {
