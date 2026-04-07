@@ -404,7 +404,13 @@
             ;
         };
         general = {
-          blink = aV {
+          lsp = aV {
+            inherit
+              (pkgs.vimPlugins)
+              nvim-lspconfig
+              ;
+          };
+          completion = aV {
             inherit
               (pkgs.vimPlugins)
               luasnip
@@ -423,6 +429,21 @@
               blink-cmp-copilot
               ;
           };
+          editor = aV {
+            inherit
+              (pkgs.vimPlugins)
+              which-key-nvim
+              ts-comments-nvim
+              flash-nvim
+              hover-nvim
+              ;
+          };
+          git = aV {
+            inherit
+              (pkgs.vimPlugins)
+              gitsigns-nvim
+              ;
+          };
           treesitter = aV {
             inherit
               (pkgs.vimPlugins)
@@ -434,43 +455,27 @@
               withAllGrammars
               ;
           };
-          always = aV {
+          ui = aV {
             inherit
               (pkgs.vimPlugins)
-              nvim-lspconfig
               lualine-nvim
-              gitsigns-nvim
-              vim-sleuth
-              vim-fugitive
-              vim-rhubarb
-              nvim-surround
-              ;
-          };
-          extra = aV {
-            inherit
-              (pkgs.vimPlugins)
               noice-nvim
-              nvim-notify
-              which-key-nvim
-              ts-comments-nvim
-              undotree
               indent-blankline-nvim
-              flash-nvim
-              snipe-nvim
-              hover-nvim
               snacks-nvim
               marks-nvim
               ;
-
-            # If it was included in your flake inputs as plugins-hlargs,
-            # this would be how to add that plugin in your config.
+            inherit
+              (pkgs.neovimPlugins)
+              neural-open
+              ;
+          };
+          utilities = aV {
             inherit
               (pkgs.neovimPlugins)
               tiny-inline-diagnostic
               bafa
               kikao
               hbac
-              neural-open
               delta-lua
               deltaview
               ;

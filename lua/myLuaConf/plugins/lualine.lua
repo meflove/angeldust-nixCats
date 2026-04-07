@@ -1,6 +1,6 @@
 return {
   "lualine.nvim",
-  for_cat = "general.always",
+  for_cat = "general.ui",
   event = "DeferredUIEnter",
   after = function(plugin)
     -- Eviline config for lualine

@@ -1,7 +1,7 @@
 return {
   {
     "tiny-inline-diagnostic",
-    for_cat = "general.extra",
+    for_cat = "general.utilities",
     event = "DeferredUIEnter",
     after = function(plugin)
       require("tiny-inline-diagnostic").setup({
@@ -50,7 +50,7 @@ return {
   },
   {
     "bafa",
-    for_cat = "general.extra",
+    for_cat = "general.utilities",
     keys = {
       {
         "gb",
@@ -102,7 +102,7 @@ return {
   },
   {
     "kikao",
-    for_cat = "general.extra",
+    for_cat = "general.utilities",
     after = function(plugin)
       require("kikao").setup({
         session_file_name = nil,
@@ -111,7 +111,7 @@ return {
   },
   {
     "hbac",
-    for_cat = "general.extra",
+    for_cat = "general.utilities",
     after = function(plugin)
       require("hbac").setup({
         autoclose = true, -- set autoclose to false if you want to close manually
@@ -125,11 +125,11 @@ return {
   },
   {
     "delta-lua",
-    for_cat = "general.extra",
+    for_cat = "general.utilities",
   },
   {
     "deltaview",
-    for_cat = "general.extra",
+    for_cat = "general.utilities",
     keys = {
       { "<leader>dm", "<cmd>DeltaMenu <CR>", mode = { "n" }, noremap = true, desc = "DeltaMenu" },
       { "<leader>dl", "<cmd>DeltaView <CR>", mode = { "n" }, noremap = true, desc = "DeltaView" },

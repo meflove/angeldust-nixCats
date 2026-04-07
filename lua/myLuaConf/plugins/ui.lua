@@ -1,7 +1,7 @@
 return {
   {
     "mini.icons",
-    for_cat = "general.extra",
+    for_cat = "general.ui",
     event = "DeferredUIEnter",
     after = function(plugin)
       require("mini.icons").setup()
@@ -9,7 +9,7 @@ return {
   },
   {
     "indent-blankline.nvim",
-    for_cat = "general.extra",
+    for_cat = "general.ui",
     event = "DeferredUIEnter",
     after = function(plugin)
       require("ibl").setup()
@@ -17,7 +17,7 @@ return {
   },
   {
     "neural-open",
-    for_cat = "general.extra",
+    for_cat = "general.ui",
     lazy = false,
     keys = {
       { "<leader><leader>", "<Plug>(NeuralOpen)", desc = "Neural Open Files" },
@@ -25,7 +25,7 @@ return {
   },
   {
     "snacks.nvim",
-    for_cat = "general.extra",
+    for_cat = "general.ui",
     dep_of = { "neural-open" },
     lazy = false,
     keys = {
@@ -158,7 +158,7 @@ return {
   },
   {
     "noice.nvim",
-    for_cat = "general.extra",
+    for_cat = "general.ui",
     event = "DeferredUIEnter",
     load = function(name)
       vim.cmd.packadd(name)
@@ -205,7 +205,7 @@ return {
   },
   {
     "marks.nvim",
-    for_cat = "general.extra",
+    for_cat = "general.ui",
     event = "DeferredUIEnter",
     after = function(plugin)
       require("marks").setup({

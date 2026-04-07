@@ -6,18 +6,18 @@ end
 return {
   {
     "cmp-cmdline",
-    for_cat = "general.blink",
+    for_cat = "general.completion",
     on_plugin = { "blink.cmp" },
     load = load_w_after,
   },
   {
     "blink.compat",
-    for_cat = "general.blink",
+    for_cat = "general.completion",
     dep_of = { "cmp-cmdline" },
   },
   {
     "luasnip",
-    for_cat = "general.blink",
+    for_cat = "general.completion",
     dep_of = { "blink.cmp" },
     after = function(_)
       local luasnip = require("luasnip")
@@ -35,12 +35,12 @@ return {
   },
   {
     "blink-copilot",
-    for_cat = "general.blink",
+    for_cat = "general.completion",
     on_plugin = { "blink.cmp" },
   },
   {
     "copilot.lua",
-    for_cat = "general.blink",
+    for_cat = "general.completion",
     dep_of = { "blink-copilot" },
     after = function(_)
       require("copilot").setup({
@@ -57,7 +57,7 @@ return {
   -- Switch between copilot.lua and windsurf.nvim based on which service has available quota
   -- {
   --   "windsurf.nvim",
-  --   for_cat = "general.blink",
+  --   for_cat = "general.completion",
   --   on_plugin = { "blink.cmp" },
   --   after = function()
   --     require("codeium").setup({
@@ -75,12 +75,12 @@ return {
   -- },
   {
     "colorful-menu.nvim",
-    for_cat = "general.blink",
+    for_cat = "general.completion",
     on_plugin = { "blink.cmp" },
   },
   {
     "blink.pairs",
-    for_cat = "general.blink",
+    for_cat = "general.completion",
     on_plugin = { "blink.cmp" },
     after = function(_)
       require("blink.pairs").setup({})
@@ -88,7 +88,7 @@ return {
   },
   {
     "blink.cmp",
-    for_cat = "general.blink",
+    for_cat = "general.completion",
     event = "DeferredUIEnter",
     after = function(_)
       require("blink.cmp").setup({

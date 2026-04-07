@@ -1,7 +1,7 @@
 return {
   {
     "ts-comments.nvim",
-    for_cat = "general.extra",
+    for_cat = "general.editor",
     event = "DeferredUIEnter",
     after = function(plugin)
       require("ts-comments").setup({})
@@ -9,7 +9,7 @@ return {
   },
   {
     "flash.nvim",
-    for_cat = "general.extra",
+    for_cat = "general.editor",
     event = "DeferredUIEnter",
     keys = {
       {
@@ -73,7 +73,7 @@ return {
   },
   {
     "which-key.nvim",
-    for_cat = "general.extra",
+    for_cat = "general.editor",
     event = "DeferredUIEnter",
     after = function(plugin)
       require("which-key").setup({})
@@ -100,7 +100,7 @@ return {
   },
   {
     "hover.nvim",
-    for_cat = "general.extra",
+    for_cat = "general.editor",
     event = "DeferredUIEnter",
     keys = {
       {
