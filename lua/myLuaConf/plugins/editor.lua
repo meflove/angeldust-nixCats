@@ -75,9 +75,19 @@ return {
     "which-key.nvim",
     for_cat = "general.editor",
     event = "DeferredUIEnter",
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
+    },
     after = function(plugin)
-      require("which-key").setup({})
-      require("which-key").add({
+      local wk = require("which-key")
+      wk.setup({})
+      wk.add({
         { "<leader><leader>_", hidden = true },
         { "<leader>c", group = "[c]ode" },
         { "<leader>c_", hidden = true },
@@ -91,7 +101,7 @@ return {
         { "<leader>r_", hidden = true },
         { "<leader>s", group = "[s]earch" },
         { "<leader>s_", hidden = true },
-        { "<leader>t", group = "[t]oggles" },
+        { "<leader>t", group = "[t]rouble" },
         { "<leader>t_", hidden = true },
         { "<leader>w", group = "[w]orkspace" },
         { "<leader>w_", hidden = true },

@@ -463,6 +463,8 @@
               indent-blankline-nvim
               snacks-nvim
               marks-nvim
+              todo-comments-nvim
+              trouble-nvim
               ;
             inherit
               (pkgs.neovimPlugins)

@@ -213,4 +213,31 @@ return {
       })
     end,
   },
+  {
+    "todo-comments.nvim",
+    for_cat = "general.ui",
+    after = function(plugin)
+      require("todo-comments").setup()
+    end,
+  },
+  {
+    "trouble.nvim",
+    for_cat = "general.ui",
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>txx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>txX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+    },
+    after = function(plugin)
+      require("trouble").setup()
+    end,
+  },
 }
