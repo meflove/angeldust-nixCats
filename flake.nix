@@ -41,8 +41,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # TODO:
+    # Remove after fixing the issue with package
     neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
+      url = "github:nix-community/neovim-nightly-overlay/80b1f16dba171a70c44c2ee6ec9529876152a7f5";
     };
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
