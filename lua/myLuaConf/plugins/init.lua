@@ -22,8 +22,11 @@ if nixCats and nixCats("colorscheme"):find("tokyonight-storm", 1, true) == 1 the
   --     rendered_markdown = true,
   --   },
   -- })
-  require("tokyonight").setup({
-    style = "storm",
+  -- require("tokyonight").setup({
+  --   style = "storm",
+  -- })
+  require("rose-pine").setup({
+    variant = "moon",
   })
 end
 vim.cmd.colorscheme(nixCats("colorscheme"))

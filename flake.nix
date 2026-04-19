@@ -107,7 +107,7 @@
     inherit (inputs.nixCats) utils;
     luaPath = ./.;
     # this is flake-utils eachSystem
-    forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all;
+    forEachSystem = utils.eachSystem ["x86_64-linux"];
     # the following extra_pkg_config contains any values
     # which you want to pass to the config set of nixpkgs
     # import nixpkgs { config = extra_pkg_config; inherit system; }
@@ -351,6 +351,7 @@
             "catppuccin-mocha" = catppuccin-nvim;
             "tokyonight" = tokyonight-nvim;
             "tokyonight-storm" = tokyonight-nvim;
+            "rose-pine-moon" = rose-pine;
           }
         );
       };
@@ -597,7 +598,7 @@
           # you could also pass something else:
           # see :help nixCats
           themer = true;
-          colorscheme = "tokyonight-storm";
+          colorscheme = "rose-pine-moon";
         };
         extra = {
           # to keep the categories table from being filled with non category things that you want to pass
