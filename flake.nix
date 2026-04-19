@@ -31,20 +31,24 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     bacon-ls = {
-      # pinned due to breakage in newer versions of rand crate, see https://github.com/crisidev/bacon-ls/issues/104
-      url = "github:crisidev/bacon-ls/b3fe15a6764c89b30933e82d4eb2c3d91d741832";
+      url = "github:crisidev/bacon-ls";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nix
     statix = {
       url = "github:molybdenumsoftware/statix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # TODO:
-    # Remove after fixing the issue with package
+    # Nushell
+    nu-lint = {
+      url = "git+https://codeberg.org/wvhulle/nu-lint";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay/80b1f16dba171a70c44c2ee6ec9529876152a7f5";
+      url = "github:nix-community/neovim-nightly-overlay";
     };
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
@@ -311,6 +315,13 @@
             prettierd
             eslint
             eslint_d
+            ;
+        };
+
+        nulang = aV {
+          inherit
+            (pkgs)
+            nu-lint
             ;
         };
       };
@@ -587,6 +598,7 @@
           yaml = true;
           json = true;
           typescript = true;
+          nulang = true;
 
           # enabling this category will enable the go category,
           # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.

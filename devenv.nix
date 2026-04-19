@@ -17,20 +17,19 @@
     glow # for md files
   ];
 
-  enterShell = ''
-    # ${lib.getExe pkgs.git} pull
+  enterShell =
+    # bash
+    ''
+      echo -e "\n\e[33m⚙ Welcome\e[0m \e[37mto the\e[0m \e[36m nixCats\e[0m \e[35mconfiguration development\e[0m \e[32mshell!\e[0m"
 
-    echo -e "\n\e[33m⚙ Welcome\e[0m \e[37mto the\e[0m \e[36m nixCats\e[0m \e[35mconfiguration development\e[0m \e[32mshell!\e[0m"
-
-    ${lib.getExe pkgs.git} status
-  '';
+      ${lib.getExe pkgs.jujutsu} status --no-pager
+    '';
 
   git-hooks = {
     package = pkgs.prek;
 
     hooks = {
       # Basic hooks
-      shellcheck.enable = true;
       end-of-file-fixer.enable = true;
       trim-trailing-whitespace.enable = true;
       detect-private-keys.enable = true;
