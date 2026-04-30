@@ -100,6 +100,11 @@
       url = "github:kokusenz/deltaview.nvim";
       flake = false;
     };
+
+    plugins-triforce = {
+      url = "github:gisketch/triforce.nvim";
+      flake = false;
+    };
   };
 
   # see :help nixCats.flake.outputs
@@ -479,10 +484,12 @@
               marks-nvim
               todo-comments-nvim
               trouble-nvim
+              nvzone-volt
               ;
             inherit
               (pkgs.neovimPlugins)
               neural-open
+              triforce
               ;
           };
           utilities = aV {

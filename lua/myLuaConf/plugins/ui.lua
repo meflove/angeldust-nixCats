@@ -240,4 +240,31 @@ return {
       require("trouble").setup()
     end,
   },
+  {
+    "volt",
+    for_cat = "general.ui",
+    dep_of = { "triforce" },
+  },
+  {
+    "triforce",
+    for_cat = "general.ui",
+    dep_of = { "lualine" },
+    cmd = "Triforce",
+    event = "DeferredUIEnter",
+    keys = {
+      {
+        "<leader>I",
+        "<cmd>Triforce profile<cr>",
+        desc = "Show Triforce Stats",
+      },
+    },
+    after = function(plugin)
+      require("triforce").setup({
+        keymap = {
+          -- Set to nil to disable default keymap
+          show_profile = nil,
+        },
+      })
+    end,
+  },
 }
