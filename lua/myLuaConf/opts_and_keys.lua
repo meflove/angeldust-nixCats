@@ -157,7 +157,7 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next Search Result" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous Search Result" })
 vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", function()
-  vim.cmd("write")
+  vim.cmd("write!")
   vim.cmd.stopinsert()
 end, { desc = "Save File" })
 

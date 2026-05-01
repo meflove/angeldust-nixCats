@@ -147,6 +147,7 @@
         (utils.standardPluginOverlay inputs)
         # add any other flake overlays here.
         inputs.fenix.overlays.default
+        # inputs.neovim-nightly-overlay.overlays.default
 
         (_f: p: {
           bacon = inputs.bacon.defaultPackage.${p.stdenv.hostPlatform.system};
@@ -587,7 +588,12 @@
           # OR see :help nixCats.flake.outputs.settings for all of the settings available
           wrapRc = true;
           configDirName = "nixCats-nvim";
-          neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
+
+          # TODO: Pin to neovim from nixpkgs when plugins migrate to Optionset modified
+          # Recent neovim commits removed BufModifiedSet autocmd (see: https://github.com/neovim/neovim/commit/443171328531e33a7caecda0b81dadd826518a58)
+          # This breaks bafa.nvim and hbac.nvim until they update to use Optionset modified
+
+          # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
           hosts.python3.enable = true;
           hosts.node.enable = true;
         };
