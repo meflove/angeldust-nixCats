@@ -147,13 +147,13 @@
         (utils.standardPluginOverlay inputs)
         # add any other flake overlays here.
         inputs.fenix.overlays.default
-        # inputs.neovim-nightly-overlay.overlays.default
+        (import
+          "${inputs.statix}/overlay.nix")
 
         (_f: p: {
           bacon = inputs.bacon.defaultPackage.${p.stdenv.hostPlatform.system};
           bacon-ls = inputs.bacon-ls.defaultPackage.${p.stdenv.hostPlatform.system};
 
-          statix = inputs.statix.packages.${p.stdenv.hostPlatform.system}.default;
           fenix = p.fenix.complete.withComponents [
             "cargo"
             "clippy"
