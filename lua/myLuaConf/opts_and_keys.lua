@@ -24,6 +24,7 @@ vim.keymap.set(
   "<cmd>nohlsearch<CR>",
   { noremap = true, silent = true, desc = "Clear search highlight" }
 )
+require("vim._core.ui2").enable()
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
@@ -166,6 +167,7 @@ vim.cmd([[command! W w]])
 vim.cmd([[command! Wq wq]])
 vim.cmd([[command! WQ wq]])
 vim.cmd([[command! Q q]])
+vim.cmd([[command! X x]])
 
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })

@@ -4,46 +4,36 @@ run-name: nfu
 permissions:
   contents: write
   pull-requests: write
+  id-token: write
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 0 * * 1,4  # Run twice a week
+    - cron: 0 0 * * 1,4
 jobs:
   locker:
-    permissions:
-      contents: write
-      id-token: write
-      issues: write
-      pull-requests: write
-      checks: write
-      statuses: write
     runs-on: ubuntu-latest
     steps:
-      - name: repo checkout
-        uses: actions/checkout@v4
-      - name: nix install
-        uses: DeterminateSystems/nix-installer-action@v16
-      - name: flake check
-        uses: DeterminateSystems/flake-checker-action@v5
-      - name: flake update
-        id: update-flake-lock
+      - name: Checkout repo
+        uses: actions/checkout@main
+      - name: Install Nix
+        uses: DeterminateSystems/determinate-nix-action@main
+      - name: Update Nix flake.lock
+        id: update
         uses: DeterminateSystems/update-flake-lock@main
         with:
           pr-title: Update flake.lock Action
           pr-labels: |
-            CI/CD
-            automated
+            "CI/CD"
+            "automated"
           git-author-name: John Nix
           git-author-email: github-actions[bot]@users.noreply.github.com
           git-committer-name: John Nix
           git-committer-email: github-actions[bot]@users.noreply.github.com
-          pr-assignees: meflove
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+      - name: Fix hashes
       - name: Enable auto-merge
-        if: steps.update-flake-lock.outputs.pull-request-operation == 'created' ||
-          steps.update-flake-lock.outputs.pull-request-operation == 'updated'
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-          pull-request-number: ${{ steps.update-flake-lock.outputs.pull-request-number }}
-          merge-method: merge
+        run: |
+          gh pr merge ${{ steps.update.outputs.pull-request-number }} \
+            --auto \
+            --squash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}

@@ -19,6 +19,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs";
+
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
     # Rust
@@ -150,9 +152,26 @@
         (import
           "${inputs.statix}/overlay.nix")
 
-        (_f: p: {
-          bacon = inputs.bacon.defaultPackage.${p.stdenv.hostPlatform.system};
-          bacon-ls = inputs.bacon-ls.defaultPackage.${p.stdenv.hostPlatform.system};
+        (f: p: let
+          inherit (p.stdenv.hostPlatform) system;
+
+          branch-config = {
+            inherit system;
+
+            config = {
+              inherit
+                (f.config)
+                allowBroken
+                allowInsecure
+                allowUnfree
+                ;
+            };
+          };
+        in {
+          master = import inputs.nixpkgs-master branch-config;
+
+          bacon = inputs.bacon.defaultPackage.${system};
+          bacon-ls = inputs.bacon-ls.defaultPackage.${system};
 
           fenix = p.fenix.complete.withComponents [
             "cargo"
@@ -437,11 +456,14 @@
               cmp-cmdline
               blink-cmp
               blink-compat
-              blink-pairs
               colorful-menu-nvim
               copilot-lua
               blink-copilot
               windsurf-nvim
+              ;
+            inherit
+              (pkgs.master.vimPlugins)
+              blink-pairs
               ;
 
             inherit
