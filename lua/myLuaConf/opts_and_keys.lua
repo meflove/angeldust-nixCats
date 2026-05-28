@@ -24,7 +24,6 @@ vim.keymap.set(
   "<cmd>nohlsearch<CR>",
   { noremap = true, silent = true, desc = "Clear search highlight" }
 )
-require("vim._core.ui2").enable()
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
