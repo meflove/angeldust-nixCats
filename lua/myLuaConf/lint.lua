@@ -21,6 +21,8 @@ require("lze").load({
         -- python = { "pylint" },
         yaml = { "yamllint" },
         json = { "jsonlint" },
+        cpp = { "clangtidy" },
+        c = { "clangtidy" },
       }
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "BufReadPost", "InsertLeave" }, {

@@ -28,4 +28,5 @@ require("lze").load({
   { import = "myLuaConf.LSPs.languages.json" },
   { import = "myLuaConf.LSPs.languages.typescript" },
   { import = "myLuaConf.LSPs.languages.nulang" },
+  { import = "myLuaConf.LSPs.languages.cpp" },
 })

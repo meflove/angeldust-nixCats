@@ -1,0 +1,35 @@
+---
+name: Push to Cachix
+run-name: push to cachix
+permissions:
+  contents: write
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  pushing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@main
+      - uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3  # v31.10.6
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GH_TOKEN_FOR_UPDATES }}
+            trusted-substituters = https://cache.nixos.org
+        env:
+          NIX_FIRST_BUILD_UID: 400
+      - uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71
+        if: github.ref == 'refs/heads/main'
+        with:
+          name: meflove
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Build nixCats
+        run: nix build .#default -o result --print-build-logs
+      - name: Push to Cachix
+        if: github.ref == 'refs/heads/main'
+        run: |-
+          nix build .#default --json | jq -r '.[].outputs.out' | cachix push meflove

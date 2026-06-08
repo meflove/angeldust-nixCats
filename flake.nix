@@ -107,6 +107,11 @@
       url = "github:gisketch/triforce.nvim";
       flake = false;
     };
+
+    plugins-clangd-extensions = {
+      url = "git+https://git.sr.ht/~chinmay/clangd_extensions.nvim";
+      flake = false;
+    };
   };
 
   # see :help nixCats.flake.outputs
@@ -226,10 +231,12 @@
         };
         # these names are arbitrary.
         lint = aV {
-          # yaml
           inherit
             (pkgs)
+            # yaml
             yamllint
+            # nix
+            statix
             ;
 
           # json
@@ -237,13 +244,10 @@
             (pkgs.python313Packages)
             demjson3
             ;
-
-          # nix
-          inherit
-            (pkgs)
-            statix
-            ;
         };
+        gf = with pkgs; [
+          pkgs.clang
+        ];
         # and easily check if they are included in lua
         format = aV {
           inherit
@@ -349,6 +353,13 @@
             nu-lint
             ;
         };
+
+        cpp = aV {
+          inherit
+            (pkgs)
+            clang-tools
+            ;
+        };
       };
 
       # This is for plugins that will load at startup without using packadd:
@@ -440,6 +451,12 @@
           inherit
             (pkgs.vimPlugins)
             typescript-tools-nvim
+            ;
+        };
+        cpp = aV {
+          inherit
+            (pkgs.neovimPlugins)
+            clangd-extensions
             ;
         };
         general = {
@@ -630,6 +647,7 @@
           json = true;
           typescript = true;
           nulang = true;
+          cpp = true;
 
           # enabling this category will enable the go category,
           # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.

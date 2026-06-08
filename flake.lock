@@ -529,6 +529,22 @@
         "type": "github"
       }
     },
+    "plugins-clangd-extensions": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776072526,
+        "narHash": "sha256-KpYGuk+xA2Fk2DrsmGA2U8lsyaDow86Q7cKSx8YLIR8=",
+        "ref": "refs/heads/main",
+        "rev": "78c2ecd659d54972be17aa6ba2deac3c53223b80",
+        "revCount": 131,
+        "type": "git",
+        "url": "https://git.sr.ht/~chinmay/clangd_extensions.nvim"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.sr.ht/~chinmay/clangd_extensions.nvim"
+      }
+    },
     "plugins-delta-lua": {
       "flake": false,
       "locked": {
@@ -653,6 +669,7 @@
         "nu-lint": "nu-lint",
         "plugins-bafa": "plugins-bafa",
         "plugins-blink-cmp-copilot": "plugins-blink-cmp-copilot",
+        "plugins-clangd-extensions": "plugins-clangd-extensions",
         "plugins-delta-lua": "plugins-delta-lua",
         "plugins-deltaview": "plugins-deltaview",
         "plugins-hbac": "plugins-hbac",

@@ -5,6 +5,8 @@
 }: {
   name = "nixland";
 
+  cachix.push = "meflove";
+
   languages = {
     nix.enable = true;
     lua = {
