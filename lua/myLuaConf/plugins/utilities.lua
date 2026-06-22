@@ -125,13 +125,6 @@ return {
     end,
   },
   {
-    "delta-lua",
-    for_cat = "general.utilities",
-    after = function(plugin)
-      require("delta").setup()
-    end,
-  },
-  {
     "deltaview",
     for_cat = "general.utilities",
     keys = {

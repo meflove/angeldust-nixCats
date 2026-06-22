@@ -5,6 +5,19 @@ end
 
 return {
   {
+    "learning",
+    for_cat = "general.completion",
+    after = function(_)
+      require("learning").setup({
+        provider = {
+          api_url = "https://openrouter.ai/api/v1/chat/completions",
+          api_key = os.getenv("OPENROUTER_API_KEY"),
+          model = "openai/gpt-oss-120b:free",
+        },
+      })
+    end,
+  },
+  {
     "cmp-cmdline",
     for_cat = "general.completion",
     on_plugin = { "blink.cmp" },
@@ -204,18 +217,18 @@ return {
                 cmp_name = "cmdline",
               },
             },
-            codeium = {
-              name = "Codeium",
-              module = "codeium.blink",
-              score_offset = 100,
-              async = true,
-            },
             copilot = {
               name = "copilot",
               module = "blink-copilot",
               score_offset = 100,
               async = true,
             },
+            -- codeium = {
+            --   name = "Codeium",
+            --   module = "codeium.blink",
+            --   score_offset = 100,
+            --   async = true,
+            -- },
           },
         },
       })

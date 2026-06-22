@@ -11,28 +11,28 @@ on:
     - cron: 0 0 * * 1,4
 jobs:
   locker:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@main
-      - name: Install Nix
-        uses: DeterminateSystems/determinate-nix-action@main
-      - name: Update Nix flake.lock
-        id: update
-        uses: DeterminateSystems/update-flake-lock@main
-        with:
-          pr-title: Update flake.lock Action
-          pr-labels: |
-            "CI/CD"
-            "automated"
-          git-author-name: John Nix
-          git-author-email: github-actions[bot]@users.noreply.github.com
-          git-committer-name: John Nix
-          git-committer-email: github-actions[bot]@users.noreply.github.com
-      - name: Enable auto-merge
-        run: |
-          gh pr merge ${{ steps.update.outputs.pull-request-number }} \
-            --auto \
-            --squash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Install Nix
+      uses: cachix/install-nix-action@master
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+    - name: Update flake.lock
+      id: update
+      run: nix flake update
+    - name: Install devenv.sh
+      run: nix profile add nixpkgs#devenv
+    - name: Update Nix devenv.lock
+      id: update_devenv
+      run: devenv update
+    - name: Commit
+      run: |-
+        if ! git diff --quiet; then
+          git config user.name "John Nix"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Flake.lock and devenv.lock update"
+          git push
+        fi

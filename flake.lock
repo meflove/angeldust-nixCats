@@ -545,22 +545,6 @@
         "url": "https://git.sr.ht/~chinmay/clangd_extensions.nvim"
       }
     },
-    "plugins-delta-lua": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1781210104,
-        "narHash": "sha256-K7M6XFqayofGKjfQBuKmAsQoWKGWQAttYAeBWgOsqrg=",
-        "owner": "kokusenz",
-        "repo": "delta.lua",
-        "rev": "187dadfacd85b1a841b9af9cf35f98038cb12379",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kokusenz",
-        "repo": "delta.lua",
-        "type": "github"
-      }
-    },
     "plugins-deltaview": {
       "flake": false,
       "locked": {
@@ -606,6 +590,22 @@
       "original": {
         "owner": "mistweaverco",
         "repo": "kikao.nvim",
+        "type": "github"
+      }
+    },
+    "plugins-learning": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782099274,
+        "narHash": "sha256-E4DJfQWiTajDBfzhp0WHDoVP6vfk5y3xLQD59HtOVjQ=",
+        "owner": "Hashino",
+        "repo": "learning.nvim",
+        "rev": "659c6657f88a5af71bf15228984dcedcd15a7d76",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Hashino",
+        "repo": "learning.nvim",
         "type": "github"
       }
     },
@@ -670,10 +670,10 @@
         "plugins-bafa": "plugins-bafa",
         "plugins-blink-cmp-copilot": "plugins-blink-cmp-copilot",
         "plugins-clangd-extensions": "plugins-clangd-extensions",
-        "plugins-delta-lua": "plugins-delta-lua",
         "plugins-deltaview": "plugins-deltaview",
         "plugins-hbac": "plugins-hbac",
         "plugins-kikao": "plugins-kikao",
+        "plugins-learning": "plugins-learning",
         "plugins-neural-open": "plugins-neural-open",
         "plugins-tiny-inline-diagnostic": "plugins-tiny-inline-diagnostic",
         "plugins-triforce": "plugins-triforce",

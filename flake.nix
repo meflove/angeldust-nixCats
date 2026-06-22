@@ -76,6 +76,11 @@
       flake = false;
     };
 
+    plugins-learning = {
+      url = "github:Hashino/learning.nvim";
+      flake = false;
+    };
+
     plugins-bafa = {
       url = "github:mistweaverco/bafa.nvim";
       flake = false;
@@ -94,10 +99,6 @@
       flake = false;
     };
 
-    plugins-delta-lua = {
-      url = "github:kokusenz/delta.lua";
-      flake = false;
-    };
     plugins-deltaview = {
       url = "github:kokusenz/deltaview.nvim";
       flake = false;
@@ -245,9 +246,6 @@
             demjson3
             ;
         };
-        gf = with pkgs; [
-          pkgs.clang
-        ];
         # and easily check if they are included in lua
         format = aV {
           inherit
@@ -476,16 +474,14 @@
               colorful-menu-nvim
               copilot-lua
               blink-copilot
-              windsurf-nvim
-              ;
-            inherit
-              (pkgs.master.vimPlugins)
               blink-pairs
+              windsurf-nvim
               ;
 
             inherit
               (pkgs.neovimPlugins)
               blink-cmp-copilot
+              learning
               ;
           };
           editor = aV {
@@ -539,7 +535,6 @@
               bafa
               kikao
               hbac
-              delta-lua
               deltaview
               ;
           };
