@@ -46,26 +46,26 @@ return {
       end)
     end,
   },
-  {
-    "blink-copilot",
-    for_cat = "general.completion",
-    on_plugin = { "blink.cmp" },
-  },
-  {
-    "copilot.lua",
-    for_cat = "general.completion",
-    dep_of = { "blink-copilot" },
-    after = function(_)
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-        filetypes = {
-          markdown = true,
-          help = true,
-        },
-      })
-    end,
-  },
+  -- {
+  --   "blink-copilot",
+  --   for_cat = "general.completion",
+  --   on_plugin = { "blink.cmp" },
+  -- },
+  -- {
+  --   "copilot.lua",
+  --   for_cat = "general.completion",
+  --   dep_of = { "blink-copilot" },
+  --   after = function(_)
+  --     require("copilot").setup({
+  --       suggestion = { enabled = false },
+  --       panel = { enabled = false },
+  --       filetypes = {
+  --         markdown = true,
+  --         help = true,
+  --       },
+  --     })
+  --   end,
+  -- },
   -- NOTE: Alternative to Copilot - uncomment when reaching Copilot limits
   -- Switch between copilot.lua and windsurf.nvim based on which service has available quota
   -- {
@@ -86,6 +86,37 @@ return {
   --     })
   --   end,
   -- },
+  {
+    "minuet-ai.nvim",
+    for_cat = "general.completion",
+    on_plugin = { "blink.cmp" },
+    after = function(_)
+      require("minuet").setup({
+        provider = "openai_compatible",
+        request_timeout = 2.5,
+        throttle = 1500,
+        debounce = 600,
+        provider_options = {
+          openai_compatible = {
+            api_key = os.getenv("OPENROUTER_API_KEY"),
+            end_point = "https://openrouter.ai/api/v1/chat/completions",
+            model = "openai/gpt-oss-120b:free",
+            name = "Openrouter",
+            optional = {
+              max_tokens = 56,
+              top_p = 0.9,
+              provider = {
+                -- Prioritize throughput for faster completion
+                sort = "throughput",
+              },
+              -- disable thinking to avoid first token latency
+              reasoning_effort = "none",
+            },
+          },
+        },
+      })
+    end,
+  },
   {
     "colorful-menu.nvim",
     for_cat = "general.completion",
@@ -109,6 +140,8 @@ return {
         -- See :h blink-cmp-config-keymap for configuring keymaps
         keymap = {
           preset = "super-tab",
+          -- Manually invoke minuet completion.
+          ["<A-y>"] = require("minuet").make_blink_map(),
         },
         fuzzy = {
           implementation = "prefer_rust_with_warning",
@@ -184,21 +217,9 @@ return {
         },
         snippets = {
           preset = "luasnip",
-          active = function(filter)
-            local snippet = require("luasnip")
-            local blink = require("blink.cmp")
-            if snippet.in_snippet() and not blink.is_visible() then
-              return true
-            else
-              if not snippet.in_snippet() and vim.fn.mode() == "n" then
-                snippet.unlink_current()
-              end
-              return false
-            end
-          end,
         },
         sources = {
-          default = { "lsp", "path", "snippets", "buffer", "omni", "copilot" }, -- "copilot" "codeium"
+          default = { "lsp", "path", "snippets", "buffer", "omni", "minuet" }, -- "copilot" "codeium"
           providers = {
             path = {
               score_offset = 50,
@@ -217,19 +238,28 @@ return {
                 cmp_name = "cmdline",
               },
             },
-            copilot = {
-              name = "copilot",
-              module = "blink-copilot",
-              score_offset = 100,
+            minuet = {
+              name = "minuet",
+              module = "minuet.blink",
               async = true,
+              -- Should match minuet.config.request_timeout * 1000,
+              -- since minuet.config.request_timeout is in seconds
+              timeout_ms = 7500,
+              score_offset = 50, -- Gives minuet higher priority among suggestions
             },
-            -- codeium = {
-            --   name = "Codeium",
-            --   module = "codeium.blink",
-            --   score_offset = 100,
-            --   async = true,
-            -- },
           },
+          -- copilot = {
+          --   name = "copilot",
+          --   module = "blink-copilot",
+          --   score_offset = 100,
+          --   async = true,
+          -- },
+          -- codeium = {
+          --   name = "Codeium",
+          --   module = "codeium.blink",
+          --   score_offset = 100,
+          --   async = true,
+          -- },
         },
       })
     end,

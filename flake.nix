@@ -186,6 +186,17 @@
             "rustc"
             "rustfmt"
           ];
+
+          pythonPackagesExtensions =
+            p.pythonPackagesExtensions
+            ++ [
+              (_f: p: {
+                python-lsp-ruff = p.ruff.overrideAttrs (_old: {
+                  doCheck = false;
+                  pythonImportsCheck = [];
+                });
+              })
+            ];
         })
 
         # when other people mess up their overlays by wrapping them with system,
@@ -219,7 +230,9 @@
       # this section is for dependencies that should be available
       # at RUN TIME for plugins. Will be available to PATH within neovim terminal
       # this includes LSPs
-      lspsAndRuntimeDeps = {
+      lspsAndRuntimeDeps = let
+        python = pkgs.python314Packages;
+      in {
         # some categories of stuff.
         general = aV {
           inherit
@@ -242,7 +255,7 @@
 
           # json
           inherit
-            (pkgs.python313Packages)
+            (python)
             demjson3
             ;
         };
@@ -263,7 +276,7 @@
             fixjson
             ;
           inherit
-            (pkgs.python313Packages)
+            (python)
             json-repair
             ;
         };
@@ -280,7 +293,7 @@
 
         python = aV {
           inherit
-            (pkgs.python313Packages)
+            (python)
             python-lsp-server
             python-lsp-ruff
             ;
@@ -476,6 +489,7 @@
               blink-copilot
               blink-pairs
               windsurf-nvim
+              minuet-ai-nvim
               ;
 
             inherit

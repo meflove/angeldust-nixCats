@@ -19,7 +19,7 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GH_TOKEN_FOR_UPDATES }}
-            trusted-substituters = https://cache.nixos.org
+            trusted-substituters = https://cache.nixos.org https://nix-community.cachix.org https://meflove.cachix.org
         env:
           NIX_FIRST_BUILD_UID: 400
       - uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71
