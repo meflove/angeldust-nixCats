@@ -206,7 +206,6 @@
         #   (system: inputs.codeium.overlays.${system}.default)
         # )
       ];
-
     # see :help nixCats.flake.outputs.categories
     # and
     # :help nixCats.flake.outputs.categoryDefinitions.scheme
@@ -674,11 +673,14 @@
           # to keep the categories table from being filled with non category things that you want to pass
           # there is also an extra table you can use to pass extra stuff.
           # but you can pass all the same stuff in any of these sets and access it in lua
+          ai = {
+            model = "nvidia/nemotron-3-ultra-550b-a55b:free";
+          };
           nixdExtras = {
             nixpkgs = ''import ${pkgs.path} {}'';
             # or inherit nixpkgs;
             nixos_options = ''(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.nixos-pc.options'';
-            home_manager_options = ''(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."angeldust@nixos-pc".options'';
+            home_manager_options = ''(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."angeldust".options'';
           };
         };
       };

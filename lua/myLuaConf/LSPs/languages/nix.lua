@@ -1,5 +1,3 @@
-local catUtils = require("nixCatsUtils")
-
 return {
   {
     "nil_ls",
@@ -20,7 +18,6 @@ return {
   },
   {
     "nixd",
-    enabled = catUtils.isNixCats and (nixCats("nix") or nixCats("neonixdev")) or false,
     lsp = {
       filetypes = { "nix" },
       settings = {

@@ -7,7 +7,7 @@ return {
     lsp = {
       filetypes = { "json" },
       settings = {
-        jsonls = {
+        json = {
           format = { enable = true },
           validate = { enable = true },
 
@@ -21,7 +21,7 @@ return {
       if schemastore_ok then
         vim.lsp.config("jsonls", {
           settings = {
-            jsonls = {
+            json = {
               schemas = schemastore.json.schemas(),
             },
           },

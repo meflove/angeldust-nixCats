@@ -32,7 +32,7 @@ A comprehensive Neovim configuration managed with **nixCats** - a Nix-based pack
 ## ✨ Features
 
 ### 🎨 User Interface
-- **Catppuccin Theme** - Beautiful, modern color scheme
+- **rose-pine** - Beautiful, modern color scheme (moon variant)
 - **Noice.nvim** - Enhanced UI for notifications, cmdline, and messages
 - **Tiny Inline Diagnostic** - Clean inline diagnostics display
 - **Indent Blankline** - Visual indentation guides
@@ -40,7 +40,7 @@ A comprehensive Neovim configuration managed with **nixCats** - a Nix-based pack
 
 ### 🔧 Code Editing
 - **Blink.cmp** - Fast, modern completion engine
-- **Copilot.lua** - GitHub Copilot integration for AI assistance
+- **minuet-ai.nvim** - AI completion via OpenRouter (configurable model)
 - **Treesitter** - Advanced syntax highlighting and code understanding
 - **Flash.nvim** - Quick navigation and search
 
@@ -76,17 +76,25 @@ This configuration uses the **idiomatic nixCats approach**:
 
 ```
 .
-├── flake.nix              # Main Nix flake with dependencies and configuration
-├── devenv.nix             # Development environment setup
-├── init.lua               # Main Neovim entry point
+├── flake.nix              # Main Nix flake: inputs, categories, package definitions
+├── devenv.nix             # devenv shell + pre-commit hooks (lint/format)
+├── init.lua               # Neovim entry point (bootstraps nixCats mock + config)
+├── stylua.toml            # StyLua formatter config
+├── after/
+│   └── queries/nix/       # Treesitter injections for Nix (bash/fish/python/…)
 ├── lua/
+│   ├── nixCatsUtils/      # nixCats helpers (mock setup, lze `for_cat` handler)
+│   ├── snippets/          # LuaSnip snippets (lua / nix / python)
 │   └── myLuaConf/
 │       ├── init.lua       # Main configuration loader
+│       ├── opts_and_keys.lua  # Vim options + keymaps
+│       ├── format.lua     # conform.nvim setup
+│       ├── lint.lua       # nvim-lint setup
 │       ├── LSPs/          # LSP configurations
-│       │   ├── init.lua   # LSP setup
+│       │   ├── init.lua   # LSP loader + per-language imports
 │       │   └── languages/ # Language-specific LSP configs
-│       ├── plugins/       # Plugin specifications
-│       └── *.lua          # Other configuration modules
+│       └── plugins/       # Plugin specs (completion/editor/git/ui/…)
+├── .github/workflows/     # CI: cachix push, flake-lock update, codeberg mirror
 └── README.md              # This file
 ```
 
@@ -191,10 +199,9 @@ direnv allow
 
 ## 🎨 Theme & Appearance
 
-- **Catppuccin** theme (mocha/latte/frappe/macchiato variants)
+- **rose-pine** theme (moon variant, configurable via `categories.colorscheme` in `flake.nix`)
 - **Custom highlight groups** for better readability
-- **Transparent background** support for terminal integration
-- **Integrated statusline** with Git information
+- **Integrated statusline** (lualine) with Git information and LSP status
 
 ## 📚 Documentation
 

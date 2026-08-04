@@ -12,7 +12,7 @@ return {
         provider = {
           api_url = "https://openrouter.ai/api/v1/chat/completions",
           api_key = os.getenv("OPENROUTER_API_KEY"),
-          model = "openai/gpt-oss-120b:free",
+          model = nixCats.extra("ai.model"),
         },
       })
     end,
@@ -33,17 +33,46 @@ return {
     for_cat = "general.completion",
     dep_of = { "blink.cmp" },
     after = function(_)
-      local luasnip = require("luasnip")
-      require("luasnip.loaders.from_vscode").lazy_load()
-      luasnip.config.setup({})
-
       local ls = require("luasnip")
+      local types = require("luasnip.util.types")
 
-      vim.keymap.set({ "i", "s" }, "<M-b>", function()
+      ls.setup({
+        -- Allow jumping back to a previous tab-stop with <S-Tab>.
+        history = true,
+        -- Re-evaluate function/dynamic nodes as you type (powers the `up` snippet).
+        update_events = "TextChanged,TextChangedI",
+        delete_check_events = "TextChanged",
+        ext_opts = {
+          [types.choiceNode] = {
+            active = {
+              virt_text = { { "● choiceNode — cycle with <C-l>", "Comment" } },
+            },
+          },
+        },
+      })
+
+      -- Load lua-format snippets from `lua/snippets/<ft>.lua`.
+      -- The path is resolved from the runtimepath, so it works in both nix and
+      -- non-nix mode. lazy_load only pulls a filetype's snippets when a buffer
+      -- of that type is opened. See :h luasnip-loaders-lua.
+      local snippet_paths = vim.api.nvim_get_runtime_file("lua/snippets", true)
+      if #snippet_paths > 0 then
+        require("luasnip.loaders.from_lua").lazy_load({ paths = snippet_paths })
+      end
+
+      -- Cycle choice nodes (e.g. the `if`/`class` snippets). blink.cmp's
+      -- super-tab preset already handles <Tab>/<S-Tab> snippet jumping, so we
+      -- only add choice cycling here. Only active while inside a snippet.
+      vim.keymap.set({ "i", "s" }, "<C-l>", function()
         if ls.choice_active() then
           ls.change_choice(1)
         end
-      end)
+      end, { silent = true, desc = "LuaSnip: next choice node" })
+      vim.keymap.set({ "i", "s" }, "<C-h>", function()
+        if ls.choice_active() then
+          ls.change_choice(-1)
+        end
+      end, { silent = true, desc = "LuaSnip: previous choice node" })
     end,
   },
   -- {
@@ -97,22 +126,38 @@ return {
         throttle = 1500,
         debounce = 600,
         provider_options = {
-          openai_compatible = {
-            api_key = os.getenv("OPENROUTER_API_KEY"),
-            end_point = "https://openrouter.ai/api/v1/chat/completions",
-            model = "openai/gpt-oss-120b:free",
-            name = "Openrouter",
+          -- openai_compatible = {
+          --   api_key = "OPENROUTER_API_KEY",
+          --   end_point = "https://openrouter.ai/api/v1/chat/completions",
+          --   model = nixCats.extra("ai.model"),
+          --   name = "Openrouter",
+          --   optional = {
+          --     max_tokens = 56,
+          --     top_p = 0.9,
+          --     provider = {
+          --       -- Prioritize throughput for faster completion
+          --       sort = "throughput",
+          --     },
+          --     -- disable thinking to avoid first token latency
+          --     reasoning_effort = "none",
+          --   },
+          -- },
+          claude = {
+            model = "glm-4.7",
+            api_key = "ANTHROPIC_API_KEY",
+            end_point = "https://api.z.ai/api/anthropic",
             optional = {
-              max_tokens = 56,
-              top_p = 0.9,
-              provider = {
-                -- Prioritize throughput for faster completion
-                sort = "throughput",
-              },
-              -- disable thinking to avoid first token latency
-              reasoning_effort = "none",
+              -- pass any additional parameters you want to send to claude request,
+              -- e.g.
+              -- stop_sequences = nil,
             },
+            -- a list of functions to transform the endpoint, header, and request body
+            transform = {},
           },
+        },
+
+        virtualtext = {
+          show_on_completion_menu = true,
         },
       })
     end,
