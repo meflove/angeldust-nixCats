@@ -5,19 +5,6 @@ end
 
 return {
   {
-    "learning",
-    for_cat = "general.completion",
-    after = function(_)
-      require("learning").setup({
-        provider = {
-          api_url = "https://openrouter.ai/api/v1/chat/completions",
-          api_key = os.getenv("OPENROUTER_API_KEY"),
-          model = nixCats.extra("ai.model"),
-        },
-      })
-    end,
-  },
-  {
     "cmp-cmdline",
     for_cat = "general.completion",
     on_plugin = { "blink.cmp" },
@@ -121,7 +108,7 @@ return {
     on_plugin = { "blink.cmp" },
     after = function(_)
       require("minuet").setup({
-        provider = "openai_compatible",
+        provider = "claude",
         request_timeout = 2.5,
         throttle = 1500,
         debounce = 600,

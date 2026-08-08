@@ -76,11 +76,6 @@
       flake = false;
     };
 
-    plugins-learning = {
-      url = "github:Hashino/learning.nvim";
-      flake = false;
-    };
-
     plugins-bafa = {
       url = "github:mistweaverco/bafa.nvim";
       flake = false;
@@ -494,7 +489,6 @@
             inherit
               (pkgs.neovimPlugins)
               blink-cmp-copilot
-              learning
               ;
           };
           editor = aV {
