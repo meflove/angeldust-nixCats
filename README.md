@@ -1,8 +1,14 @@
+> [!IMPORTANT]
+> ⚠️ **This repository is now in maintenance mode.**
+> I have moved to a new setup: **[angeldust-nvimWrap](https://github.com/meflove/angeldust-nvimWrap)** — please use that going forward.
+> Only critical fixes will be applied here.
+
 # 🐱 nixCats Neovim Configuration
 
 A comprehensive Neovim configuration managed with **nixCats** - a Nix-based package manager for Neovim plugins and configuration. This setup provides a reproducible, declarative Neovim environment with support for multiple programming languages, modern plugins, and powerful development tools.
 
 <!--toc:start-->
+
 - [🐱 nixCats Neovim Configuration](#🐱-nixcats-neovim-configuration)
   - [✨ Features](#features)
     - [🎨 User Interface](#🎨-user-interface)
@@ -27,11 +33,12 @@ A comprehensive Neovim configuration managed with **nixCats** - a Nix-based pack
   - [📚 Documentation](#📚-documentation)
   - [🤝 Contributing](#🤝-contributing)
   - [📄 License](#📄-license)
-<!--toc:end-->
+  <!--toc:end-->
 
 ## ✨ Features
 
 ### 🎨 User Interface
+
 - **rose-pine** - Beautiful, modern color scheme (moon variant)
 - **Noice.nvim** - Enhanced UI for notifications, cmdline, and messages
 - **Tiny Inline Diagnostic** - Clean inline diagnostics display
@@ -39,12 +46,14 @@ A comprehensive Neovim configuration managed with **nixCats** - a Nix-based pack
 - **Snacks Explorer** - Modern file explorer sidebar
 
 ### 🔧 Code Editing
+
 - **Blink.cmp** - Fast, modern completion engine
 - **minuet-ai.nvim** - AI completion via OpenRouter (configurable model)
 - **Treesitter** - Advanced syntax highlighting and code understanding
 - **Flash.nvim** - Quick navigation and search
 
 ### 🧠 LSP & IntelliSense
+
 - **Multi-language support** with dedicated LSP configurations:
   - **Python**: PylSP with Ruff formatter/linter, BasedPyright for type checking
   - **Lua**: LuaLS for intelligent Lua development
@@ -55,6 +64,7 @@ A comprehensive Neovim configuration managed with **nixCats** - a Nix-based pack
 - **LSP Config** - Seamless LSP integration
 
 ### 🛠️ Development Tools
+
 - **Git Integration**: Git signs, git blame, git UI components
 - **Snacks Picker**: Powerful fuzzy finder and picker
 - **Which-key**: Keyboard shortcut discovery
@@ -101,48 +111,56 @@ This configuration uses the **idiomatic nixCats approach**:
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - **NixOS** or **Nix Package Manager** with flakes enabled
 - **Git** for version control
 
 ### Installation
 
 1. **Add repo to flake inputs:**
-  ```bash
-  angeldust-nixCats = {
-    url = "github:meflove/angeldust-nixCats";
-  };
-  ```
+
+```bash
+angeldust-nixCats = {
+  url = "github:meflove/angeldust-nixCats";
+};
+```
 
 2. **Add package to environment.systemPackages or home.packages:**
-  ```bash
-  home.packages = [
-    inputs.angeldust-nixCats.packages.${pkgs.stdenv.hostPlatform.system}.default
-  ];
-  ```
+
+```bash
+home.packages = [
+  inputs.angeldust-nixCats.packages.${pkgs.stdenv.hostPlatform.system}.default
+];
+```
+
 3. **Rebuild your system:**
-  ```bash
-  sudo nixos-rebuild switch --flake .
-  # or
-  home-manager switch --flake .
-  ```
+
+```bash
+sudo nixos-rebuild switch --flake .
+# or
+home-manager switch --flake .
+```
 
 4. **Open editor:**
-  ```bash
-  nixCats
-  # or
-  vim
-  # or
-  vimcat
-  ```
+
+```bash
+nixCats
+# or
+vim
+# or
+vimcat
+```
 
 ### Available Build Outputs
 
 Check available packages with:
+
 ```bash
 nix flake show
 ```
 
 Typical outputs include:
+
 - `nixCats` - Main Neovim with all plugins
 - `defaultPackage` - Default Neovim configuration
 - `devShell` - Development environment with linting tools
@@ -150,6 +168,7 @@ Typical outputs include:
 ## 🎯 Supported Languages
 
 ### Primary Support
+
 - **Python** 🐍 - Full LSP, formatting (Ruff), linting, type checking
 - **Lua** 🌙 - Complete LSP support for Neovim development
 - **Nix** ❄️ - Nix language server integration
@@ -157,13 +176,16 @@ Typical outputs include:
 - **Rust** 🦀 - rust-analyzer LSP with rustaceanvim, bacon-ls for background checking, crates.nvim for dependency management
 
 ### Extended Features
+
 - **Markdown** 📝 - Enhanced editing with preview support
 - **Configuration Files** - Support for various config formats
 
 ## ⚙️ Customization
 
 ### Adding New Plugins
+
 Add plugins to `flake.nix` inputs section:
+
 ```nix
 "plugins-your-plugin" = {
   url = "github:user/repo";
@@ -174,13 +196,16 @@ Add plugins to `flake.nix` inputs section:
 Then configure in the appropriate Lua file using `lze` specifications.
 
 ### Enabling/Disabling Features
+
 Edit the category definitions in `flake.nix` to enable/disable features:
+
 - `debug` - Debug tools and configurations
 - `lint` - Linting support
 - `format` - Code formatting
 - Custom categories for different plugin groups
 
 ### Language Configuration
+
 Add new language LSPs in `lua/myLuaConf/LSPs/languages/` and import them in `lua/myLuaConf/LSPs/init.lua`.
 
 ## 🔧 Development Environment
@@ -193,6 +218,7 @@ This project includes a comprehensive development environment with:
 - **Git hooks** for automated quality checks
 
 Activate with:
+
 ```bash
 direnv allow
 ```
@@ -213,6 +239,7 @@ direnv allow
 ## 🤝 Contributing
 
 This is a personal configuration, but feel free to:
+
 - Fork and adapt for your needs
 - Submit issues for bugs or improvements
 - Share suggestions for optimizations
