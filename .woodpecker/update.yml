@@ -1,0 +1,37 @@
+---
+when:
+  - event: cron
+  - event: manual
+    branch: main
+steps:
+  - name: update flake and devenv locks
+    image: nixos/nix
+    environment:
+      GH_TOKEN:
+        from_secret: gh_token
+      GIT_SSH_PRIVATE_KEY:
+        from_secret: private_ssh_key
+      GIT_SSH_KNOWN_HOSTS:
+        from_secret: known_hosts
+    commands:
+      - mkdir -p ~/.ssh
+      - chmod 700 ~/.ssh
+      - echo "$GIT_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
+      - chmod 600 ~/.ssh/id_ed25519
+      - echo "$GIT_SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+      - chmod 644 ~/.ssh/known_hosts
+      - |
+        export NIX_CONFIG="experimental-features = nix-command flakes
+        access-tokens = github.com=$GH_TOKEN"
+      - nix flake update
+      - nix profile add nixpkgs#devenv
+      - devenv update
+      - git config user.name "John Nix"
+      - git config user.email "john-nix@noreply.codeberg.org"
+      - git remote set-url origin ssh://git@codeberg.org/angeldust/angeldust-nixCats.git
+      - |-
+        git add .
+        if ! git diff --cached --quiet; then
+          git commit -m "Flake.lock and devenv.lock update"
+          git push origin main
+        fi

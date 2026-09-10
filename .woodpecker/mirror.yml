@@ -1,0 +1,31 @@
+---
+when:
+  - event: push
+    branch: main
+  - event: manual
+    branch: main
+clone:
+  - name: git
+    image: woodpeckerci/plugin-git
+    settings:
+      partial: false
+      depth: 0
+steps:
+  - name: mirror to github
+    image: alpine/git
+    environment:
+      GIT_SSH_PRIVATE_KEY:
+        from_secret: private_ssh_key
+      GIT_SSH_KNOWN_HOSTS:
+        from_secret: known_hosts
+    commands:
+      - mkdir -p ~/.ssh
+      - chmod 700 ~/.ssh
+      - echo "$GIT_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
+      - chmod 600 ~/.ssh/id_ed25519
+      - echo "$GIT_SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+      - chmod 644 ~/.ssh/known_hosts
+      - git remote add github git@github.com:meflove/angeldust-nixCats.git
+      - git push github main --force
+      - git remote add tangled git@tangled.org:did:plc:to7yjfo4xyk5cq4bjn46uu5j
+      - git push tangled main --force

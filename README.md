@@ -1,3 +1,6 @@
+> [!NOTE]
+> **Moved to [Codeberg](https://codeberg.org/angeldust/angeldust-nixCats)** — GitHub now serves as a mirror.
+
 > [!IMPORTANT]
 > ⚠️ **This repository is now in maintenance mode.**
 > I have moved to a new setup: **[angeldust-nvimWrap](https://github.com/meflove/angeldust-nvimWrap)** — please use that going forward.
