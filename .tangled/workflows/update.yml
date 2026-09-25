@@ -1,0 +1,21 @@
+---
+when:
+  - event: [manual]
+  - event: schedule
+    schedule:
+      - cron: 0 0 * * 1,4
+engine: microvm
+image: nixos
+dependencies: [git, openssh, devenv]
+steps:
+  - name: Configure nix
+    command: |
+      export NIX_CONFIG="experimental-features = nix-command flakes
+      access-tokens = github.com=$GH_TOKEN"
+  - name: Update flake.lock and devenv.lock
+    command: |-
+      nix flake update
+      devenv update
+  - name: Commit and push
+    command: |-
+      TANGLED_COMMIT_MESSAGE='chore(nix): update flake.lock, devenv.lock' sh .tangled/scripts/commit-and-push.sh flake.lock devenv.lock

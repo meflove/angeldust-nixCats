@@ -1,0 +1,25 @@
+---
+when:
+  - event: [push, manual, pull_request]
+    branch: [main]
+engine: microvm
+image: nixos
+dependencies: [git, openssh]
+clone:
+  depth: 1000000
+steps:
+  - name: Configure ssh
+    command: |-
+      set +x
+      mkdir -p ~/.ssh
+      chmod 700 ~/.ssh
+      echo "$PRIVATE_SSH_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
+      chmod 600 ~/.ssh/id_ed25519
+      echo "$KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+      chmod 644 ~/.ssh/known_hosts
+  - name: Push
+    command: |-
+      git remote add codeberg ssh://git@codeberg.org/angeldust/angeldust-nixCats.git
+      git remote add github git@github.com:meflove/angeldust-nixCats.git
+      git push codeberg HEAD:refs/heads/main --force
+      git push github HEAD:refs/heads/main --force

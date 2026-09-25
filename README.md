@@ -1,19 +1,24 @@
 > [!NOTE]
-> **Moved to [Codeberg](https://codeberg.org/angeldust/angeldust-nixCats)** — GitHub now serves as a mirror.
+> **Moved to [tangled](https://tangled.org/did:plc:to7yjfo4xyk5cq4bjn46uu5j)** — [GitHub](https://github.com/meflove/angeldust-nixCats) and [Codeberg](https://codeberg.org/angeldust/angeldust-nixCats) now serve as mirrors.
 
 > [!IMPORTANT]
 > ⚠️ **This repository is now in maintenance mode.**
-> I have moved to a new setup: **[angeldust-nvimWrap](https://github.com/meflove/angeldust-nvimWrap)** — please use that going forward.
+> I have moved to a new setup: **[angeldust-nvimWrap](https://tangled.org/did:plc:tnajjjjypb4b57xv7tjpv3is)** — please use that going forward.
 > Only critical fixes will be applied here.
 
+---
+
 # 🐱 nixCats Neovim Configuration
+
+<details>
+<summary>📖 Click to expand the full documentation</summary>
 
 A comprehensive Neovim configuration managed with **nixCats** - a Nix-based package manager for Neovim plugins and configuration. This setup provides a reproducible, declarative Neovim environment with support for multiple programming languages, modern plugins, and powerful development tools.
 
 <!--toc:start-->
 
 - [🐱 nixCats Neovim Configuration](#🐱-nixcats-neovim-configuration)
-  - [✨ Features](#features)
+  - [✨ Features](#✨-features)
     - [🎨 User Interface](#🎨-user-interface)
     - [🔧 Code Editing](#🔧-code-editing)
     - [🧠 LSP & IntelliSense](#🧠-lsp-intellisense)
@@ -27,7 +32,7 @@ A comprehensive Neovim configuration managed with **nixCats** - a Nix-based pack
   - [🎯 Supported Languages](#🎯-supported-languages)
     - [Primary Support](#primary-support)
     - [Extended Features](#extended-features)
-  - [⚙️ Customization](#️-customization)
+  - [⚙ Customization](#️⚙-customization)
     - [Adding New Plugins](#adding-new-plugins)
     - [Enabling/Disabling Features](#enablingdisabling-features)
     - [Language Configuration](#language-configuration)
@@ -107,7 +112,7 @@ This configuration uses the **idiomatic nixCats approach**:
 │       │   ├── init.lua   # LSP loader + per-language imports
 │       │   └── languages/ # Language-specific LSP configs
 │       └── plugins/       # Plugin specs (completion/editor/git/ui/…)
-├── .github/workflows/     # CI: cachix push, flake-lock update, codeberg mirror
+├── .tangled/workflows/    # CI (Tangled): lock/package updates, mirror to Codeberg & GitHub
 └── README.md              # This file
 ```
 
@@ -122,9 +127,14 @@ This configuration uses the **idiomatic nixCats approach**:
 
 1. **Add repo to flake inputs:**
 
-```bash
+```nix
 angeldust-nixCats = {
-  url = "github:meflove/angeldust-nixCats";
+  # Primary (Tangled); permalink form also works:
+  #   git+https://tangled.org/did:plc:to7yjfo4xyk5cq4bjn46uu5j
+  url = "git+https://tangled.org/angeldust.tngl.sh/angeldust-nixCats";
+  # Mirrors:
+  # url = "git+https://codeberg.org/angeldust/angeldust-nixCats";
+  # url = "github:meflove/angeldust-nixCats";
 };
 ```
 
@@ -244,7 +254,7 @@ direnv allow
 This is a personal configuration, but feel free to:
 
 - Fork and adapt for your needs
-- Submit issues for bugs or improvements
+- Submit issues on [Tangled](https://tangled.org/did:plc:to7yjfo4xyk5cq4bjn46uu5j), [Codeberg](https://codeberg.org/angeldust/angeldust-nixCats/issues) or [GitHub](https://github.com/meflove/angeldust-nixCats/issues)
 - Share suggestions for optimizations
 
 ## 📄 License
@@ -254,3 +264,5 @@ Based on nixCats example configuration - licensed under MIT License.
 ---
 
 **Built with ❤️ using nixCats, Nix, and Neovim**
+
+</details>
